@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文中是对Numpy和Panadas使用的总结。Numpy是c语言写的，Panadas是基于Numpy的升级版本。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python数据分析之Numpy&amp;Panadas使用">
+<meta property="og:url" content="http://yoursite.com/2017/07/10/Python数据分析之Numpy-Panadas使用/index.html">
+<meta property="og:site_name" content="Cooper">
+<meta property="og:description" content="本文中是对Numpy和Panadas使用的总结。Numpy是c语言写的，Panadas是基于Numpy的升级版本。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-10T15:49:37.072Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python数据分析之Numpy&amp;Panadas使用">
+<meta name="twitter:description" content="本文中是对Numpy和Panadas使用的总结。Numpy是c语言写的，Panadas是基于Numpy的升级版本。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2017/07/10/Python数据分析之Numpy-Panadas使用/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python数据分析之Numpy&Panadas使用 | Cooper</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>Zeitplan</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/10/Python数据分析之Numpy-Panadas使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cooper">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python数据分析之Numpy&Panadas使用
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2017-07-10 20:27:32 / Geändert am: 23:49:37" itemprop="dateCreated datePublished" datetime="2017-07-10T20:27:32+08:00">2017-07-10</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文中是对Numpy和Panadas使用的总结。<br>Numpy是c语言写的，Panadas是基于Numpy的升级版本。<br><a id="more"></a></p>
+<p>使用矩阵计算，所以速度很快。在神经网络中也会运用到Panadas和Numpy的使用。</p>
+<p>##安装<br>mac用户使用安装：<br>    sudo pip install numpy<br>win用户可以安装anacoda。</p>
+<h2 id="Numpy基本属性"><a href="#Numpy基本属性" class="headerlink" title="Numpy基本属性"></a>Numpy基本属性</h2><p>numpy是基于矩阵的运算。<br>一维的是序列，[1,2,4], 多行的是矩阵。<br>矩阵：一维或者多维的数组。</p>
+<pre><code>[[1,2,3],
+ [4,5,6]]
+</code></pre><h3 id="列表转换为矩阵"><a href="#列表转换为矩阵" class="headerlink" title="列表转换为矩阵"></a>列表转换为矩阵</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">	In [4]: array = np.array([[1,2,3], 		</span><br><span class="line">    						  [4,5,6]])</span><br><span class="line"></span><br><span class="line">	In [11]: type(array)</span><br><span class="line">	Out[11]: numpy.ndarray</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	In [5]: array</span><br><span class="line">	Out[5]:		# 输出的是个矩阵</span><br><span class="line">	array([[1, 2, 3],</span><br><span class="line">	       [4, 5, 6]])</span><br><span class="line"></span><br><span class="line">### ndim 维数</span><br><span class="line">	In [6]: array.ndim	# 输出的2维</span><br><span class="line">	Out[6]: 2</span><br><span class="line"></span><br><span class="line">### shape 矩阵的形状（行数和列数）</span><br><span class="line"></span><br><span class="line">	In [7]: array.shape	# 2行3列</span><br><span class="line">	Out[7]: (2, 3)</span><br><span class="line"></span><br><span class="line">### size 元素个数</span><br><span class="line"></span><br><span class="line">	In [10]: array.size</span><br><span class="line">	Out[10]: 6</span><br><span class="line"></span><br><span class="line">### 创建矩阵和数组</span><br><span class="line"></span><br><span class="line">#### dtype</span><br><span class="line">dtype指定创建的矩阵类型：</span><br><span class="line">	In [3]: a = np.array([1,2,4], dtype=np.int)</span><br><span class="line">	</span><br><span class="line">	In [4]: a.dtype</span><br><span class="line">	Out[4]: dtype(&apos;int32&apos;)</span><br><span class="line">```该是版本的问题，直接使用的dtype=int创建出来的是32位的数字而不是64位</span><br></pre></td></tr></table></figure>
+<p>也可以指定float类型：<code>dtype=np.float32或者dtype=np.float</code>。后面的数字是位数，位数越大的，占用的空间越大，精度越大；位数越小的精度越小，但是占用空间越小。<br>numpy中有很多的类型，自行谷歌吧。</p>
+<h4 id="全为0或者1的矩阵"><a href="#全为0或者1的矩阵" class="headerlink" title="全为0或者1的矩阵"></a>全为0或者1的矩阵</h4><p>使用zeros方法：<br>    In [15]: a = np.zeros((4,5)， dtype=np.int16) # 注意2层括号</p>
+<pre><code>In [16]: a
+Out[16]:
+array([[ 0.,  0.,  0.,  0.,  0.],
+       [ 0.,  0.,  0.,  0.,  0.],
+       [ 0.,  0.,  0.,  0.,  0.],
+       [ 0.,  0.,  0.,  0.,  0.]])
+</code></pre><p>创建全为1的矩阵同理，使用ones()方法。</p>
+<pre><code>a = np.empty((3,4))
+# 生成的是几乎接近为0的数字矩阵。
+</code></pre><h4 id="生成有序序列："><a href="#生成有序序列：" class="headerlink" title="生成有序序列："></a>生成有序序列：</h4><p>arange指定的是个数，reshape指定行列数。<br>    In [18]: a = np.arange(100).reshape((10,10))<br>    In [19]: a<br>    Out[19]:<br>    array([[ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9],<br>           [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],<br>           [20, 21, 22, 23, 24, 25, 26, 27, 28, 29],<br>           [30, 31, 32, 33, 34, 35, 36, 37, 38, 39],<br>           [40, 41, 42, 43, 44, 45, 46, 47, 48, 49],<br>           [50, 51, 52, 53, 54, 55, 56, 57, 58, 59],<br>           [60, 61, 62, 63, 64, 65, 66, 67, 68, 69],<br>           [70, 71, 72, 73, 74, 75, 76, 77, 78, 79],<br>           [80, 81, 82, 83, 84, 85, 86, 87, 88, 89],<br>           [90, 91, 92, 93, 94, 95, 96, 97, 98, 99]])</p>
+<p>生成线段：<br>np.linspace(1, 20, 5)：在1到20之间生成5段数字。会自动的进行分隔。<br>    In [20]: m = np.linspace(1, 20, 5)</p>
+<pre><code>In [21]: m
+Out[21]: array([  1.  ,   5.75,  10.5 ,  15.25,  20.  ])
+</code></pre><p>同样可以再后面加上reshape方法,指定形成的矩阵行列数。</p>
+<h3 id="numpy基础运算"><a href="#numpy基础运算" class="headerlink" title="numpy基础运算"></a>numpy基础运算</h3><p>对于加减乘逻辑运算是相同的形式：</p>
+<pre><code>In [34]: a = np.array([10,20,30,40])
+
+In [35]: b = np.arange(5)
+
+In [36]: a
+Out[36]: array([10, 20, 30, 40])
+
+In [37]: b
+Out[37]: array([0, 1, 2, 3, 4])
+
+a + b
+a - b
+a * b
+a**2 # a的平方
+</code></pre><p>使用sin或者cos或者tan需要np.sin或者np.cos方法等<br>    In [44]: c = 10*np.sin(a)</p>
+<pre><code>In [45]: c
+Out[45]: array([-5.44021111,  9.12945251, -9.88031624,  7.4511316 ])
+</code></pre><p>比较矩阵中数字返回的是布尔值：</p>
+<pre><code>In [51]: b
+Out[51]: array([0, 1, 2, 3, 4, 5])
+
+In [52]: b&gt;4     或者b&lt;4 或者 b==4 等于要用双等于，
+Out[52]: array([False, False, False, False, False,  True], dtype=bool)
+</code></pre><p>矩阵中乘法运算：    </p>
+<ol>
+<li><p>一对一的相乘：<br> In [57]: b<br> Out[57]: array([0, 1, 2, 3])</p>
+<p> In [58]: a<br> Out[58]: array([10, 20, 30, 40])</p>
+<p> In [59]: b*a<br> Out[59]: array([  0,  20,  60, 120])</p>
+</li>
+<li><p>使用矩阵相乘：</p>
+<p> In [98]: a = np.array([[1,2],[4,5]])<br> In [99]: a<br> Out[99]:<br> array([[1, 2],</p>
+<pre><code>[4, 5]])
+</code></pre><p> In [100]: b = np.arange(4).reshape((2,2))<br> In [101]: b<br> Out[101]:<br> array([[0, 1],</p>
+<pre><code>[2, 3]])
+</code></pre><p> In [102]: np.dot(a,b)  # 方法1<br> Out[102]:<br> array([[ 4,  7],</p>
+<pre><code>[10, 19]])
+</code></pre><p> In [103]: a.dot(b)    # 方法2<br> Out[103]:<br> array([[ 4,  7],</p>
+<pre><code>[10, 19]])
+</code></pre></li>
+</ol>
+<h3 id="随机生成数的矩阵"><a href="#随机生成数的矩阵" class="headerlink" title="随机生成数的矩阵"></a>随机生成数的矩阵</h3><p>随机生成的是0到1数字：<br>    In [104]: m = np.random.random((2,4)) # shape，2行4列</p>
+<pre><code>In [105]: m
+Out[105]:
+array([[ 0.84860133,  0.06700202,  0.94674506,  0.72577269],
+       [ 0.99062033,  0.70405729,  0.45466221,  0.8595076 ]])
+</code></pre><h3 id="矩阵中数字运算"><a href="#矩阵中数字运算" class="headerlink" title="矩阵中数字运算"></a>矩阵中数字运算</h3><p>矩阵 a<br>axis=1 是每列的运算结果<br>axis=0是每行的运算结果<br>矩阵中所有数字求和：np.sum(a，axis=1)<br>矩阵中所有数字求最小值：np.min(a, axis=0）<br>矩阵中所有数字求最大值：np.max(a)</p>
+<p>找出矩阵中最大或者最小的索引：np.argmin(a) np.argmax(a)<br>矩阵数字的平均值：np.mean(a, axis=1 or 0) 或者a.mean() np.average(a)，同样可以加上axis=1或者0的属性<br>求中位数： np.median(a)<br>逐步累加： np.cumsum(a)<br>逐步累差： np.diff(a)<br>找出非0的数字：np.norzero(a) # 不清楚<br>逐行排序：np.sort(a)<br>行列反转：np.transpose(a) 行转换为列，列转换为行<br>截取矩阵中某些数字： np.clip(a，min_number, max_number) # 大于 max_number的数字都变为max_number，小于min_number的数字都变为min_number</p>
+<pre><code>In [107]: a
+Out[107]:
+array([[1, 2],
+       [4, 5]])
+
+In [108]: np.median(a)
+Out[108]: 3.0
+
+In [109]: np.cumsum(a)
+Out[109]: array([ 1,  3,  7, 12], dtype=int32)
+
+In [110]: np.diff(a)
+Out[110]:
+array([[1],
+       [1]])
+
+# 将a矩阵反转之后在和原矩阵相乘
+In [112]: np.transpose(a).dot(a) 
+Out[112]:
+array([[17, 22],
+       [22, 29]])
+</code></pre><h3 id="矩阵数字索引"><a href="#矩阵数字索引" class="headerlink" title="矩阵数字索引"></a>矩阵数字索引</h3><pre><code>In [116]: r = np.arange(3,15).reshape((3,4))
+
+In [117]: r
+Out[117]:
+array([[ 3,  4,  5,  6],
+       [ 7,  8,  9, 10],
+       [11, 12, 13, 14]])
+
+In [118]: r[2][3] or r[2,3] 都是相同的作用
+Out[118]: 14
+
+In [119]: r[2,3]
+Out[119]: 14
+
+[120]: r[2]            # 取出的是行索引值为2的
+Out[120]: array([11, 12, 13, 14])
+
+In [121]: r[:,2] # 取出列索引值为2的，前面的冒号是代表行
+Out[121]: array([ 5,  9, 13])
+
+In [122]: r[1, 1:4]    # 出去第一行，第一列到第3列的数字。
+Out[122]: array([ 8,  9, 10])
+</code></pre><p>迭代矩阵的列和行：<br>numpy中只有行的迭代，没有列的迭代，但是可以先将矩阵转换，再for出来。<br>        In [123]: for row in r:<br>             …:     print(row)<br>             …:<br>        [3 4 5 6]<br>        [ 7  8  9 10]<br>        [11 12 13 14]</p>
+<pre><code># 列的迭代
+In [124]: for col in r.T:
+     ...:     print(col)
+     ...:
+[ 3  7 11]
+[ 4  8 12]
+[ 5  9 13]
+[ 6 10 14]
+</code></pre><h3 id="迭代每个数字"><a href="#迭代每个数字" class="headerlink" title="迭代每个数字"></a>迭代每个数字</h3><pre><code>In [125]: r.flatten()  # 将矩阵转为一维的
+Out[125]: array([ 3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14])
+
+In [126]: for x in r.flat:    # 使用后flat方法
+     ...:     print(x)
+     ...:
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</code></pre><h3 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h3><p>直接使用reshape()方法也行</p>
+<pre><code>In [127]: r
+Out[127]:
+array([[ 3,  4,  5,  6],
+       [ 7,  8,  9, 10],
+       [11, 12, 13, 14]])
+
+In [128]: r.reshape(2,6)
+Out[128]:
+array([[ 3,  4,  5,  6,  7,  8],
+       [ 9, 10, 11, 12, 13, 14]])
+</code></pre><h3 id="合并矩阵"><a href="#合并矩阵" class="headerlink" title="合并矩阵"></a>合并矩阵</h3><pre><code>In [135]: a     # 序列
+Out[135]: array([1, 2, 3])
+
+In [136]: b    # 序列
+Out[136]: array([4, 5, 6])
+
+In [137]: np.vstack((a,b))  # vertical stack 上下的合并
+Out[137]:    # 合并之后是矩阵
+array([[1, 2, 3],
+       [4, 5, 6]])
+
+In [138]: np.hstack((a,b))    # 左右合并 horizontal stack
+Out[138]: array([1, 2, 3, 4, 5, 6]) # 序列
+</code></pre><p>如果是序列，使用transport是没用的。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/06/Hadoop笔记/" rel="next" title="Hadoop笔记">
+                <i class="fa fa-chevron-left"></i> Hadoop笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/11/深度学习入门/" rel="prev" title="深度学习入门">
+                深度学习入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cooper</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Numpy基本属性"><span class="nav-number">1.</span> <span class="nav-text">Numpy基本属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列表转换为矩阵"><span class="nav-number">1.1.</span> <span class="nav-text">列表转换为矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全为0或者1的矩阵"><span class="nav-number">1.1.1.</span> <span class="nav-text">全为0或者1的矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成有序序列："><span class="nav-number">1.1.2.</span> <span class="nav-text">生成有序序列：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#numpy基础运算"><span class="nav-number">1.2.</span> <span class="nav-text">numpy基础运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机生成数的矩阵"><span class="nav-number">1.3.</span> <span class="nav-text">随机生成数的矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵中数字运算"><span class="nav-number">1.4.</span> <span class="nav-text">矩阵中数字运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵数字索引"><span class="nav-number">1.5.</span> <span class="nav-text">矩阵数字索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代每个数字"><span class="nav-number">1.6.</span> <span class="nav-text">迭代每个数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#降维"><span class="nav-number">1.7.</span> <span class="nav-text">降维</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并矩阵"><span class="nav-number">1.8.</span> <span class="nav-text">合并矩阵</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cooper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

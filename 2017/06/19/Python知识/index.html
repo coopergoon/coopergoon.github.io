@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本篇文章包含Python语法,操作系统内容。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python知识">
+<meta property="og:url" content="http://yoursite.com/2017/06/19/Python知识/index.html">
+<meta property="og:site_name" content="Cooper">
+<meta property="og:description" content="本篇文章包含Python语法,操作系统内容。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-17T07:09:51.299Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python知识">
+<meta name="twitter:description" content="本篇文章包含Python语法,操作系统内容。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2017/06/19/Python知识/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python知识 | Cooper</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>Zeitplan</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Python知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cooper">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python知识
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2017-06-19 10:03:46" itemprop="dateCreated datePublished" datetime="2017-06-19T10:03:46+08:00">2017-06-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2017-10-17 15:09:51" itemprop="dateModified" datetime="2017-10-17T15:09:51+08:00">2017-10-17</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇文章包含Python语法,操作系统内容。</p>
+<a id="more"></a>
+<h1 id="Python语言"><a href="#Python语言" class="headerlink" title="Python语言"></a>Python语言</h1><h3 id="1-元类"><a href="#1-元类" class="headerlink" title="1.元类"></a>1.元类</h3><p>元类: 类的类，非常的不常用，写框架的时候用到(但是我没写过…..)。<br><a href="http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python" target="_blank" rel="noopener">stackoverflow:http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python</a></p>
+<h3 id="2-字符串格式化"><a href="#2-字符串格式化" class="headerlink" title="2.字符串格式化"></a>2.字符串格式化</h3><p>方式1：使用 %<br>        name = ‘Cooper’<br>        ‘Hi, My name is %s’ % name<br>% 不能同时传递多个变量或者元组，如果是name是(Cooper, Lily), 会抛出TypeError，所以为了保证准确，要这样做：<br>    ‘Hi My name is %s’ % (name, ) #  提供一个单元素的数组而不是一个参数</p>
+<p>方式2：使用format<br>format不会出现以上的问题。<br><a href="http://stackoverflow.com/questions/5082452/python-string-formatting-vs-format" target="_blank" rel="noopener">stackoverflow:http://stackoverflow.com/questions/5082452/python-string-formatting-vs-format</a></p>
+<h3 id="3-Python中下划线"><a href="#3-Python中下划线" class="headerlink" title="3.Python中下划线"></a>3.Python中下划线</h3><pre><code>__name__ : Python内部的名字，区分用户自定义的命名 
+_name : 指定变量为私有
+__name : 解释器用_classname__name 代替这个名字，用以区分其他类似相同的命名。
+</code></pre><p><a href="http://www.zhihu.com/question/19754941" target="_blank" rel="noopener">知乎:http://www.zhihu.com/question/19754941</a></p>
+<h3 id="4-内建函数"><a href="#4-内建函数" class="headerlink" title="4.内建函数"></a>4.内建函数</h3><p>内建函数是python解释器启动后默认加载的属性和函数。<br>可以在ipython下使用命令<code>dir(__builtins__)</code>查看。</p>
+<ul>
+<li>range </li>
+<li>xrange </li>
+<li><p>map<br>map函数根据提供的函数对指定的序列做映射。<br>实例1：</p>
+<p>  map(lambad x: x*x, [1 ,2, 4])     # 输出结果是：[1, 4, 9]</p>
+</li>
+</ul>
+<p>实例2：</p>
+<pre><code>def f1(x, y):
+    return (x, y)
+
+l1 = [0, 1, 2, 3, 4, 5, 6]
+l2 = [&apos;Sun&apos;, &apos;M&apos;, &apos;T&apos;, &apos;W&apos;, &apos;T&apos;, &apos;F&apos;, &apos;S&apos;] 
+l3 = map(f1, l1, l2)     # 参数：map(提供的函数， 指定的序列1，指定的序列2)
+# 输出 [(0, &apos;Sun&apos;), (1, &apos;M&apos;), (2, &apos;T&apos;), (3, &apos;W&apos;), (4, &apos;T&apos;), (5, &apos;F&apos;), (6, &apos;S&apos;)]
+</code></pre><ul>
+<li>reduce<h3 id="5-内建属性（魔法方法）"><a href="#5-内建属性（魔法方法）" class="headerlink" title="5.内建属性（魔法方法）"></a>5.内建属性（魔法方法）</h3></li>
+</ul>
+<h3 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h3><h3 id="4-函数传参既不是传值也不是传引用"><a href="#4-函数传参既不是传值也不是传引用" class="headerlink" title="4. 函数传参既不是传值也不是传引用"></a>4. 函数传参既不是传值也不是传引用</h3><p>函数传参到底传递的是什么，传值，传参，还有的说是可变对象传引用，不可变对象传值。<br>其实都是不对的，<strong>函数传参传递的对象，或者说传递对象的引用。</strong><br>函数的传递过程中，将整个对象传入，对于可变对象的修改在函数的外部以及内部都可见，调用者和被调用者之间可以共享这个对象；而对于不可变对象，因为不能被修改，因此修改是通过生成一个新的对象然后赋值来实现的。</p>
+<h4 id="5-print和stdout-write区别"><a href="#5-print和stdout-write区别" class="headerlink" title="5. print和stdout.write区别"></a>5. print和stdout.write区别</h4><p>print方法实际调用的是sys.stdout.write(obj + ‘\n’)。也就是在print方法中自带了一个换行的功能。<br>但是在sys.stdout.write中，并没有换行。所以：  </p>
+<pre><code>sys.stdout.write(&apos;hello&apos; + &apos;\n&apos;)  
+print(&apos;hello&apos;)
+</code></pre><p>这二句是一样的作用。  </p>
+<h3 id="Python装饰器"><a href="#Python装饰器" class="headerlink" title="Python装饰器"></a>Python装饰器</h3><p>查看我的另一篇文章：<a href="https://walkmanchen.github.io/2017/06/20/Python-%E8%A3%85%E9%A5%B0%E5%99%A8/#more" target="_blank" rel="noopener">Python-装饰器</a></p>
+<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="1-死锁"><a href="#1-死锁" class="headerlink" title="1.死锁"></a>1.死锁</h2><p>原因:</p>
+<pre><code>1. 竞争资源
+2. 程序推进顺序不当
+</code></pre><p>必要条件:</p>
+<pre><code>1. 互斥条件
+2. 请求和保持条件
+3. 不剥夺条件
+4. 环路等待条件
+</code></pre><p>处理死锁基本方法:</p>
+<pre><code>1. 预防死锁(摒弃除1以外的条件)
+2. 避免死锁(银行家算法)
+3. 检测死锁(资源分配图)
+4. 解除死锁
+5. 剥夺资源
+</code></pre><h2 id="2-select，-poll，-epoll"><a href="#2-select，-poll，-epoll" class="headerlink" title="2.select， poll， epoll"></a>2.select， poll， epoll</h2><p>三者都是I/O轮循的方式，但实现的层面不同。<br><a href="http://www.cnblogs.com/Anker/p/3265058.html" target="_blank" rel="noopener">区别总结:http://www.cnblogs.com/Anker/p/3265058.html</a><br>select的缺点：</p>
+<pre><code>1. 连接个数限制
+2. 查找配对速度慢
+3. 数据从内核拷贝到用户空间
+</code></pre><p>epoll改善了这3三个缺点：<a href="http://www.cnblogs.com/my_life/articles/3968782.html" target="_blank" rel="noopener">链接:http://www.cnblogs.com/my_life/articles/3968782.html</a></p>
+<h1 id="面试题汇总"><a href="#面试题汇总" class="headerlink" title="面试题汇总"></a>面试题汇总</h1><h3 id="题1："><a href="#题1：" class="headerlink" title="题1："></a>题1：</h3><pre><code>In [18]: a = 21
+
+In [19]: b = &apos;str&apos;  
+</code></pre><p>请问： a and b 返回是什么，a or b 返回是什么。<br>答案：  </p>
+<pre><code>In [20]: a and b
+Out[20]: &apos;str&apos;
+
+In [21]: b and a
+Out[21]: 21
+
+In [22]: a or b
+Out[22]: 21
+
+In [23]: b or a
+Out[23]: &apos;str&apos;  
+</code></pre><p><strong><em>由上述可知，and 连接时，返回是后者；or连接时，返回的是前者。</em></strong><br><strong><em>在 and 连接时</em></strong>，只要不是包含 0 或者 False， 都会遵循上述结论。如果包含None， 则无返回。<br><strong><em>在 or 连接时</em></strong>， 只要其中一个非0或者不是False，则都会返回非0或者非False的那个。 0， False， None都是相当于假。</p>
+<h3 id="题2：数据库查询"><a href="#题2：数据库查询" class="headerlink" title="题2：数据库查询"></a>题2：数据库查询</h3><p>如下表格（A是字段）：  </p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+</tr>
+<tr>
+<td>a</td>
+</tr>
+<tr>
+<td>b</td>
+</tr>
+</tbody>
+</table>
+<p>写出查询语句,并且是按照降序,得出：<br>|a|2|<br>|–|–|<br>|b|1|</p>
+<h3 id="题3："><a href="#题3：" class="headerlink" title="题3："></a>题3：</h3><pre><code>def foo(*args, **kwargs):
+    print(&quot;args=&quot;, args)
+    print(&quot;kwargs=&quot;, kwargs)
+    print(&quot;=================&quot;)
+
+foo(1, 2, 3)
+foo(a=1, b=2)
+foo(1, 2, 3, a=1, b=2)
+foo(&apos;a&apos;, 1, None, a=1, b=2)
+</code></pre><p>以下是输出：   </p>
+<pre><code>args= (1, 2, 3)
+kwargs= {}
+=================
+args= ()
+kwargs= {&apos;a&apos;: 1, &apos;b&apos;: 2}
+=================
+args= (1, 2, 3)
+kwargs= {&apos;a&apos;: 1, &apos;b&apos;: 2}
+=================
+args= (&apos;a&apos;, 1, None)
+kwargs= {&apos;a&apos;: 1, &apos;b&apos;: 2}
+=================  
+</code></pre><p><code>*args</code>是位置参数，<code>**kwargs</code>是关键字参数。在输出的时候，args是以元组的形式输出，kwargs是以字典的形式输出。  </p>
+<h3 id="题4："><a href="#题4：" class="headerlink" title="题4："></a>题4：</h3><p>将一个数组进行全排列：<br>数组list = [‘a’, ‘b’, ‘c’]<br>实际全排是对元素的下标进行重新排序。<br>代码：  </p>
+<pre><code>from sys import stdout
+
+def perm(li, start, end):
+  if(start == end):
+    for elem in li:   # 这里构造的是新的数组而已，全部输出就是新的排列内容
+      stdout.write(elem)
+    print &apos;&apos;   # 添加这个是为了换行
+  else:
+    for i in range(start, end):
+      li[start], li[i] = li[i], li[start]  
+      perm(li, start+1, end)           # +1 改变的是组合的前缀字母
+      li[i], li[start] = li[start], li[i]
+if __name__ == &apos;__main__&apos;:
+  li = [&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;]
+  perm(li, 0, len(li))
+</code></pre><p>输出：  </p>
+<pre><code>abcd
+abdc
+acbd
+acdb
+adcb
+adbc
+bacd
+badc
+bcad
+bcda
+bdca
+bdac
+cbad
+cbda
+cabd
+cadb
+cdab
+cdba
+dbca
+dbac
+dcba
+dcab
+dacb
+dabc
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/19/数据结构与算法-Python/" rel="prev" title="数据结构与算法(Python)">
+                数据结构与算法(Python) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cooper</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python语言"><span class="nav-number">1.</span> <span class="nav-text">Python语言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-元类"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.元类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-字符串格式化"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.字符串格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Python中下划线"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.Python中下划线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-内建函数"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.内建函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-内建属性（魔法方法）"><span class="nav-number">1.0.5.</span> <span class="nav-text">5.内建属性（魔法方法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名函数"><span class="nav-number">1.0.6.</span> <span class="nav-text">匿名函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-函数传参既不是传值也不是传引用"><span class="nav-number">1.0.7.</span> <span class="nav-text">4. 函数传参既不是传值也不是传引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-print和stdout-write区别"><span class="nav-number">1.0.7.1.</span> <span class="nav-text">5. print和stdout.write区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python装饰器"><span class="nav-number">1.0.8.</span> <span class="nav-text">Python装饰器</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统"><span class="nav-number">2.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-死锁"><span class="nav-number">2.1.</span> <span class="nav-text">1.死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-select，-poll，-epoll"><span class="nav-number">2.2.</span> <span class="nav-text">2.select， poll， epoll</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试题汇总"><span class="nav-number">3.</span> <span class="nav-text">面试题汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题1："><span class="nav-number">3.0.1.</span> <span class="nav-text">题1：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题2：数据库查询"><span class="nav-number">3.0.2.</span> <span class="nav-text">题2：数据库查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题3："><span class="nav-number">3.0.3.</span> <span class="nav-text">题3：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题4："><span class="nav-number">3.0.4.</span> <span class="nav-text">题4：</span></a></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cooper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

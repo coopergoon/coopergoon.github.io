@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本篇内容为Mysql相关知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql知识汇总">
+<meta property="og:url" content="http://yoursite.com/2017/06/19/Mysql知识汇总/index.html">
+<meta property="og:site_name" content="Cooper">
+<meta property="og:description" content="本篇内容为Mysql相关知识。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-06-19T13:44:29.721Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql知识汇总">
+<meta name="twitter:description" content="本篇内容为Mysql相关知识。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2017/06/19/Mysql知识汇总/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Mysql知识汇总 | Cooper</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>Zeitplan</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/Mysql知识汇总/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cooper">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mysql知识汇总
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2017-06-19 18:12:30 / Geändert am: 21:44:29" itemprop="dateCreated datePublished" datetime="2017-06-19T18:12:30+08:00">2017-06-19</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇内容为Mysql相关知识。</p>
+<a id="more"></a>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><h2 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h2><h4 id="查询基本语法："><a href="#查询基本语法：" class="headerlink" title="查询基本语法："></a>查询基本语法：</h4><pre><code>select * from table_name;
+</code></pre><ul>
+<li>星号表示指定表中的所有内容。</li>
+<li>可以使用as起别名。</li>
+<li>查询多个列，之间用逗号分开。</li>
+</ul>
+<h4 id="消除重复行"><a href="#消除重复行" class="headerlink" title="消除重复行"></a>消除重复行</h4><pre><code>select distinct gender from table_name;
+</code></pre><h4 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h4><pre><code>select * from tablename where 条件；
+</code></pre><p>比较运算符包含： &gt;, &lt;, =, &gt;=, &lt;=， !=或者&lt;&gt;【不等于】<br>逻辑运算符： and, or, not<br>查询编号大于3的学生:<br>    selecr * from students where id&gt;3;<br>查询姓名不是Tom：</p>
+<pre><code>select * from students where name!=&apos;Tom&apos;；
+</code></pre><p>查询编号大于3的女生：</p>
+<pre><code>select * from students where id&gt;3 and gender=0;
+</code></pre><h5 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h5><ul>
+<li>使用like关键字</li>
+<li>%: 表示任意多个字符</li>
+<li>_: 表示一个任意字符</li>
+</ul>
+<p>查询姓王的人：</p>
+<pre><code>select * from tablename where name like &apos;王%&apos;；
+</code></pre><p>查询姓王的，且名字只有一个字：</p>
+<pre><code>select 8 from tablename where name like &apos;王_&apos;;
+</code></pre><h5 id="范围查询"><a href="#范围查询" class="headerlink" title="范围查询"></a>范围查询</h5><ul>
+<li>i: 表示在一个非连续的范围内</li>
+<li><p>between: 表示在一个连续的范围内<br>查询编号是1或者2,或者8：</p>
+<p>  select 8 from tablename where id in (1, 2, 8);<br>编号为3到6的男生：</p>
+<p>  select * from tablename where id between 3 and 8 and gender =1; </p>
+</li>
+</ul>
+<h5 id="判断空"><a href="#判断空" class="headerlink" title="判断空"></a>判断空</h5><ul>
+<li>null和’ ‘是不同的</li>
+<li><p>判断为空使用 is null<br>查询没有填写地址的学生：</p>
+<p>  select * from students where address is null;</p>
+</li>
+<li><p>判断非空 is not null<br>查询填写地址的男生：</p>
+<p>  select * from tablename where address is not null and gender=1;</p>
+<h5 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h5></li>
+<li>小括号，not， 比较运算符，逻辑运算符</li>
+<li>逻辑运算中，and级别高于or，如果希望先计算or，使用小括号</li>
+</ul>
+<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>为了快速计算，可以使用提供的5个聚合函数，分别为：count(), max(), min(), sum(), avg()<br>查询学生总数：  </p>
+<pre><code>select count(*) from table;
+</code></pre><p>查询女生年龄最大的：  </p>
+<pre><code>select max(age) from table where gender=0;
+</code></pre><p>聚合函数使用都是相同的。</p>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><ul>
+<li>按照字段进行分组，字段相同的数据会被放在一个组</li>
+<li>分组后，只能查询相同的数据列，有差异的数据无法显示</li>
+<li><p>可以对分组后的数据进行统计，做聚合运算</p>
+<p>  select 列1，列2，聚合函数…. from table group by 列1，列2…..；<br>查询男女生总数：  </p>
+<p>  select gender as 性别, count(*) from studens group by gender;<br>表中取出gender一列的数据，按照gender进行分组，得出组后，对每组的数量统计（聚合函数count）。上条语句得出是女生总人数和男生总人数。<br>分组后再进行筛选数据:</p>
+</li>
+<li>使用having或者where </li>
+</ul>
+<p>查询男生总人数：  </p>
+<pre><code>方法1:select gender, count(*) from table group by gender having gender=1;
+</code></pre><p>或：</p>
+<pre><code>方法2： select count(*) from table where gender=1;
+</code></pre><p>where和having区别：</p>
+<ul>
+<li>where 是对from后面指定数据进行筛选，是对原始数据筛选</li>
+<li>having是对group by分组后的数据进行筛选</li>
+</ul>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><ul>
+<li>关键字 order by</li>
+<li>asc: 升序， 默认为升序排列</li>
+<li>desc: 降序</li>
+</ul>
+<p>查询未删除的男生信息，按照学号降序排列  </p>
+<pre><code>select * from table where gender=1 and isdelete=1 order by id desc;
+</code></pre><h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2><p>语法：</p>
+<pre><code>select * from table limit start_num, count_num;
+start_num是开始处，count_num是要获取的条目数。
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>select语句完整：  </p>
+<pre><code>select distinct * from table where... group by.... having....order by....limit start, count    
+</code></pre><ul>
+<li>select * from 表名，</li>
+<li>where</li>
+<li>group by</li>
+<li>having</li>
+<li>select distinct *</li>
+<li>order by</li>
+<li>limit start, count<br>执行时候按照以上顺序执行。使用时候也只是上述关键字的部分组合，不是全部。</li>
+</ul>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>对于复杂的查询语句，每次重复写是很麻烦的。所以通过视图简化。<br>定义视图：      </p>
+<pre><code>&gt;create view stuscorce as select * from .....[as 后是select语句]
+</code></pre><p>视图的使用就是方便查询，使用时：    </p>
+<pre><code>&gt;select * from stuscorce;
+</code></pre><h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>数据库的事务是作为单个逻辑工作单元执行的一系列操作，要么完全的执行，要么完全的不执行。数据库引擎为innodb或bdb是能对表使用事务。<br>事务语句：</p>
+<ul>
+<li>开启 begin</li>
+<li>提交 commit</li>
+<li>回滚 rollback</li>
+</ul>
+<h2 id="索引【重点】"><a href="#索引【重点】" class="headerlink" title="索引【重点】"></a>索引【重点】</h2><p>推荐：<a href="http://tech.meituan.com/mysql-index.html" target="_blank" rel="noopener">http://tech.meituan.com/mysql-index.html</a><br><a href="http://blog.codinglabs.org/articles/theory-of-mysql-index.html" target="_blank" rel="noopener">MySQL索引背后的数据结构及算法原理</a></p>
+<p>建立索引：</p>
+<pre><code>create INDEX 索引名 on 表名(列名)；
+create INDEX INDEX_NAME in emp(en_name);
+</code></pre><p>即：在emp表的en_name列上建立索引，索引名字是inx_name。<br>使用索引的影响：</p>
+<ul>
+<li>磁盘占用多</li>
+<li>对 insetr, delete, update语句的效率有影响，因为执行插入，删除，修改记录后，会对索引进行维护，花费时间。</li>
+<li>使用磁盘空间换取的是时间，提升查询效率。</li>
+</ul>
+<p>索引的分类：<br>Mysql中主要是主键索引， 唯一索引，普通索引， 全文索引。</p>
+<h4 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h4><pre><code>当某个字段设置为primary key后，这个字段就是主键索引了。
+</code></pre><h4 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h4><pre><code>当某个字段设置为unique key后，这个字段就是唯一索引了，如果再出现相同的字段则会报错。
+</code></pre><p>特点：</p>
+<ol>
+<li>可以存在多个唯一索引。</li>
+<li>要求索引的字段值唯一不能重复。</li>
+<li>如果将唯一索引设置为not null， 使用效果上等价于primary key。</li>
+</ol>
+<h4 id="普通索引"><a href="#普通索引" class="headerlink" title="普通索引"></a>普通索引</h4><pre><code>使用create INDEX 为某个字段创建普通索引，普通索引不要求字段内容唯一。
+</code></pre><p>普通索引创建：<br>方法1：<br>创建表的时候，直接指定普通索引：</p>
+<pre><code>create table `table_name` (
+id int unsigned primary key,
+name varchar(64) not null ,default &apos;&apos;,
+index (name)    /*这里指定普通索引*/
+) charset=utf8;
+</code></pre><p>方法2：<br>创建表之后在指定索引：<br>    create table <code>table_name</code> (<br>    id int unsigned primary key,<br>    name varchar(64) not null ,default ‘’,<br>    ) charset=utf8;</p>
+<pre><code>--创建表之后指定普通索引，第一种方法：
+alter table `table_name` add index (name);
+--创建表之后指定普通索引，第二种方法[同开始介绍的方式]：
+create INDEX index_name on table_name(name);
+</code></pre><p>特点：</p>
+<ol>
+<li>一个表中可以存在多个普通索引。</li>
+<li>使用最多的是普通索引。</li>
+<li>普通索引的效率没有主键索引的高。</li>
+<li>如果不确定某一列的值是否有重复的值，则只能用普通索引优化查询。</li>
+</ol>
+<h4 id="全文索引"><a href="#全文索引" class="headerlink" title="全文索引"></a>全文索引</h4><pre><code>进行关键字检索的时，使用全文索引.
+</code></pre>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/19/数据结构与算法-Python/" rel="next" title="数据结构与算法(Python)">
+                <i class="fa fa-chevron-left"></i> 数据结构与算法(Python)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/19/Redis/" rel="prev" title="Redis">
+                Redis <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cooper</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#语法"><span class="nav-number">1.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件"><span class="nav-number">1.1.</span> <span class="nav-text">条件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询基本语法："><span class="nav-number">1.1.0.1.</span> <span class="nav-text">查询基本语法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消除重复行"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">消除重复行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#条件语句"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">条件语句</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#模糊查询"><span class="nav-number">1.1.0.3.1.</span> <span class="nav-text">模糊查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#范围查询"><span class="nav-number">1.1.0.3.2.</span> <span class="nav-text">范围查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#判断空"><span class="nav-number">1.1.0.3.3.</span> <span class="nav-text">判断空</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优先级"><span class="nav-number">1.1.0.3.4.</span> <span class="nav-text">优先级</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚合"><span class="nav-number">1.2.</span> <span class="nav-text">聚合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分组"><span class="nav-number">1.3.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">1.4.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分页"><span class="nav-number">1.5.</span> <span class="nav-text">分页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图"><span class="nav-number">1.7.</span> <span class="nav-text">视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-number">1.8.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引【重点】"><span class="nav-number">1.9.</span> <span class="nav-text">索引【重点】</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主键索引"><span class="nav-number">1.9.0.1.</span> <span class="nav-text">主键索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#唯一索引"><span class="nav-number">1.9.0.2.</span> <span class="nav-text">唯一索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#普通索引"><span class="nav-number">1.9.0.3.</span> <span class="nav-text">普通索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全文索引"><span class="nav-number">1.9.0.4.</span> <span class="nav-text">全文索引</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cooper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

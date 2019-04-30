@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文介绍Python序列化和反序列化。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python序列化和反序列化">
+<meta property="og:url" content="http://yoursite.com/2017/10/11/Python序列化和反序列化/index.html">
+<meta property="og:site_name" content="Cooper">
+<meta property="og:description" content="本文介绍Python序列化和反序列化。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-13T18:05:47.006Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python序列化和反序列化">
+<meta name="twitter:description" content="本文介绍Python序列化和反序列化。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2017/10/11/Python序列化和反序列化/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python序列化和反序列化 | Cooper</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>Zeitplan</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/11/Python序列化和反序列化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cooper">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python序列化和反序列化
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2017-10-11 03:35:50" itemprop="dateCreated datePublished" datetime="2017-10-11T03:35:50+08:00">2017-10-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2017-10-14 02:05:47" itemprop="dateModified" datetime="2017-10-14T02:05:47+08:00">2017-10-14</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文介绍Python序列化和反序列化。<br><a id="more"></a></p>
+<h2 id="序列化和反序列化的概念"><a href="#序列化和反序列化的概念" class="headerlink" title="序列化和反序列化的概念"></a>序列化和反序列化的概念</h2><font color="#DC143C" size="5"> 把对象转换为字节序列的过程称为对象的序列化；反之，把字节序列恢复为对象的过程称为对象的反序列化。 序列化后可以转换为二进制，xml， json等。</font><br><hr><br>对象的序列化主要用途有2个：<br>1、 <font color="#DC143C">把对象的字节序列永久的保存在硬盘上，通常保存在一个文件中  </font>
+
+<blockquote>
+<p>很多的应用中，需要对一些对象进行序列化，让他们离开内存空间，入住物理硬盘，以便长期的保存。比如最常见的是web服务器的session对象，当10万用户并发访问，就会在内存中出现10万个session对象，内存可能会吃不消。 因此可以把session对象序列化到硬盘中，需要用的时候，再把硬盘中对象还原到内存中。  </p>
+</blockquote>
+<p>2、  <font color="#DC143C">在网络上传送对象的字节序列。  </font>  </p>
+<blockquote>
+<p>当2个进程进行远程通讯时，彼此发送各种类型的数据。无论是哪一种数据，都会以二进制序列的形式再网络上传输。发送方把数据序列化为字节序列，接收方再把字节序列回复为对象形式。</p>
+</blockquote>
+<p>再举一个例子，游戏有存档的功能。游戏的数据都是存在内存中，当关机以后，内存的的东西会消失的，但是存档之后就不会，因为是吧游戏的数据序列化到了硬盘中。这就是对象的持久化！</p>
+<h2 id="Python如何进行序列化"><a href="#Python如何进行序列化" class="headerlink" title="Python如何进行序列化"></a>Python如何进行序列化</h2><p>Python提供了2个模块进行序列化：pickle和json  </p>
+<h3 id="pickle"><a href="#pickle" class="headerlink" title="pickle"></a>pickle</h3><p>pickle是将对象序列为bytes字节，不能和其他的编程语言进行交互，是python独有的。<br>pickle提供了4个方法：dumps,dump, load, loads。  dumps和dump是序列化方法，loads和load是反序列方法。 py3中已经不存在cPickle模块，在py3中改为的是Pickle。</p>
+<p><hr></p>
+<font color="#008000"> dumps 和 dump 的区别在于：dumps 只接受一个参数即序列化的对象；dump 可以接受2个参数，一个是序列化的对象，另一个是需要写入的文件。 </font>  
+
+<h4 id="dumps-序列化一个对象"><a href="#dumps-序列化一个对象" class="headerlink" title="dumps: 序列化一个对象"></a>dumps: 序列化一个对象</h4><pre><code>In [1]: import pickle
+
+In [2]: d = [1, 2, 3]
+
+In [3]: pickle.dumps(d)   # 序列化方法
+Out[3]: b&apos;\x80\x03]q\x00(K\x01K\x02K\x03e.&apos;
+
+In [4]: temp = pickle.dumps(d)
+
+In [5]: temp
+Out[5]: b&apos;\x80\x03]q\x00(K\x01K\x02K\x03e.&apos;
+
+In [6]: type(temp)
+Out[6]: bytes
+</code></pre><h4 id="dump-序列化到一个文件中"><a href="#dump-序列化到一个文件中" class="headerlink" title="dump: 序列化到一个文件中"></a>dump: 序列化到一个文件中</h4><pre><code>import pickle
+
+# 序列化对象
+f = open(&apos;file.txt&apos;,  &apos;wb&apos;)
+d = [1, 3, 5]
+pickle.dump(d, f)  # 传递序列化对象和要存储的文件名
+f.close()
+
+# 读取序列化后的字节
+f = open(&apos;file.txt&apos;, &apos;rb&apos;)
+print(f.read())
+</code></pre><p><hr></p>
+<font color="#008000"> loads是把对象从硬盘中读取到内存中，显示读取到bytes，用loads方法反序列化出对象。<br>load方法是直接反序列化一个文件。 </font>  
+
+<h4 id="loads-反序列化字节"><a href="#loads-反序列化字节" class="headerlink" title="loads: 反序列化字节"></a>loads: 反序列化字节</h4><pre><code>In [41]: g = [2222]
+
+In [42]: r = pickle.dumps(g)
+
+In [43]: r
+Out[43]: b&apos;\x80\x03]q\x00M\xae\x08a.&apos;
+
+In [44]: pickle.loads(r)
+Out[44]: [2222] 
+</code></pre><h4 id="load-反序列一个文件"><a href="#load-反序列一个文件" class="headerlink" title="load: 反序列一个文件"></a>load: 反序列一个文件</h4><pre><code>In [45]: l = [1,2,2,3,4,6666666]
+
+In [46]: f= open(&apos;file.txt&apos;, &apos;wb&apos;)
+
+In [47]: pickle.dump(l, f)
+
+In [48]: f.close()
+
+In [49]: f = open(&apos;file.txt&apos;, &apos;rb&apos;)
+
+In [50]: m = pickle.load(f)
+
+In [51]: f.close()
+
+In [52]: m
+Out[52]: [1, 2, 2, 3, 4, 6666666]
+</code></pre><p>以上是对一个变量进行序列化，同样可以对一个类以及实例对象进行序列化。  </p>
+<pre><code># coding=utf8
+import pickle
+
+class Person(object):
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def hello(self):
+        print(&apos;{name} is {age} years old&apos;.format(name=self.name, age=self.age))
+
+# 将类本身存储在变量中进行序列化
+class_Person = pickle.dumps(Person)
+
+# 反序列回这个类
+person_temp = pickle.loads(class_Person)
+
+print(person_temp)
+
+# 验证反序列回来的是否就是我们创建的哪个类
+if person_temp is Person:
+    print(&apos;ok&apos;)
+# 事实证明他就是的！
+
+# 将实例对象进行序列化
+p_obj = Person(&apos;tom&apos;, 22)
+temp = pickle.dumps(p_obj)
+
+p = pickle.loads(temp)
+
+p.hello()
+# 将实例对象进行序列化后再反序列化回来的对象依然是可以调用实例方法。
+</code></pre><p>同样，是可以使用dump和load方法将序列化后的对象存在文件中的。</p>
+<p><hr></p>
+<p><hr>  </p>
+<h3 id="Json"><a href="#Json" class="headerlink" title="Json"></a>Json</h3><p>pickle是一段二进制，而json表示出来是一个字符串，具有更好的可读性，是可以被各种语言读取的，也就方便了和其他语言间的传递。json是比xml快的，也能够在web页面读取，所以首先json。  </p>
+<p>json中同样也是上述的4个方法：序列化dump和dumps，反序列化load和loads。</p>
+<h4 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h4><p>上代码：  </p>
+<pre><code>class Person(object):
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def hello(self):
+        print(&apos;{name} is {age} years old&apos;.format(name=self.name, age=self.age))                    
+</code></pre><p>同样是上面的类。使用json序列化，直接进行序列化是会报错的：  </p>
+<pre><code>with open(&apos;a.json&apos;, &apos;w&apos;, encoding=&apos;utf8&apos;) as f:
+    json.dump(p, f)  # TypeError: Object of type &apos;Person&apos; is not JSON serializable
+</code></pre><p>此时dump需要一个参数default，这个参数接受一个函数。这个函数就是将对象转换为字典的。  </p>
+<pre><code>def d(person):
+    return {&apos;name&apos;: person.name,
+            &apos;age&apos;: person.age}
+</code></pre><p>将d函数设置为default：</p>
+<pre><code>with open(&apos;a.json&apos;, &apos;w&apos;, encoding=&apos;utf8&apos;) as f:
+    json.dump(p, f, default=d)
+</code></pre><p>每次都要写一个这样的函数真的很累，所以可以使用对象实例中的<code>__dict__</code>即可。  </p>
+<pre><code>with open(&apos;a.json&apos;, &apos;w&apos;, encoding=&apos;utf8&apos;) as f:
+    json.dump(p, f, default=lambda obj: obj.__dict__)
+</code></pre><p>这样就会序列化成功。    </p>
+<h4 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h4><p>读取的时候load一个字典，再转回对象就可，同样需要一个蚕食<code>object_hook</code>，该参数接受一个函数，用于将字典转换为对象。  </p>
+<pre><code>def dictperson(dic):
+    return Person(dic[&apos;name&apos;], dic[&apos;age&apos;])   
+
+# 进行反序列化
+with open(&apos;a.json&apos;, encoding=&apos;utf8&apos;) as f:
+    obj = json.load(f, object_hook=dictperson)   #将上面的函数设置为参数
+    print(obj.name, obj.age)
+    obj.hello()   # 反序列化回来的对象一样使用
+</code></pre><p>完整代码如下：  </p>
+<pre><code>def dictperson(dic):
+    return Person(dic[&apos;name&apos;], dic[&apos;age&apos;])
+
+# 序列化
+p = Person(&apos;tom&apos;, 22)
+with open(&apos;a.json&apos;, &apos;w&apos;, encoding=&apos;utf8&apos;) as f:
+    json.dump(p, f, default=lambda obj: obj.__dict__)   # 此处使用了匿名函数，直接调用`__dict__`
+
+# 反序列化
+with open(&apos;a.json&apos;, encoding=&apos;utf8&apos;) as f:
+    obj = json.load(f, object_hook=dictperson)  
+    print(obj.__dict__)       
+    print(obj.name, obj.age)
+    obj.hello()
+</code></pre><p>输出是：  </p>
+<pre><code>{&apos;name&apos;: &apos;tom&apos;, &apos;age&apos;: 22}
+tom 22
+tom is 22 years old  
+</code></pre><hr>  
+
+<p>序列化时还有一个<a href="http://blog.csdn.net/flydirk/article/details/8557188" target="_blank" rel="noopener"><code>shelve模块</code></a>，但是不常用。暂时不总结了。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/16/算法图解笔记/" rel="next" title="算法图解笔记">
+                <i class="fa fa-chevron-left"></i> 算法图解笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/17/爬虫知识点杂碎/" rel="prev" title="爬虫知识点杂碎">
+                爬虫知识点杂碎 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cooper</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化和反序列化的概念"><span class="nav-number">1.</span> <span class="nav-text">序列化和反序列化的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python如何进行序列化"><span class="nav-number">2.</span> <span class="nav-text">Python如何进行序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pickle"><span class="nav-number">2.1.</span> <span class="nav-text">pickle</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dumps-序列化一个对象"><span class="nav-number">2.1.1.</span> <span class="nav-text">dumps: 序列化一个对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dump-序列化到一个文件中"><span class="nav-number">2.1.2.</span> <span class="nav-text">dump: 序列化到一个文件中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#loads-反序列化字节"><span class="nav-number">2.1.3.</span> <span class="nav-text">loads: 反序列化字节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#load-反序列一个文件"><span class="nav-number">2.1.4.</span> <span class="nav-text">load: 反序列一个文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Json"><span class="nav-number">2.2.</span> <span class="nav-text">Json</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#序列化"><span class="nav-number">2.2.1.</span> <span class="nav-text">序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反序列化"><span class="nav-number">2.2.2.</span> <span class="nav-text">反序列化</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cooper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

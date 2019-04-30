@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文介绍爬虫的所涉及到的知识点。总结如下方便自己随时查看。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫知识点杂碎">
+<meta property="og:url" content="http://yoursite.com/2017/10/17/爬虫知识点杂碎/index.html">
+<meta property="og:site_name" content="Cooper">
+<meta property="og:description" content="本文介绍爬虫的所涉及到的知识点。总结如下方便自己随时查看。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-17T15:55:29.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫知识点杂碎">
+<meta name="twitter:description" content="本文介绍爬虫的所涉及到的知识点。总结如下方便自己随时查看。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2017/10/17/爬虫知识点杂碎/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>爬虫知识点杂碎 | Cooper</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>Zeitplan</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/17/爬虫知识点杂碎/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cooper">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">爬虫知识点杂碎
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2017-10-17 22:29:32 / Geändert am: 23:55:29" itemprop="dateCreated datePublished" datetime="2017-10-17T22:29:32+08:00">2017-10-17</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文介绍爬虫的所涉及到的知识点。总结如下方便自己随时查看。<br><a id="more"></a>  </p>
+<h4 id="请求头字段"><a href="#请求头字段" class="headerlink" title="请求头字段"></a>请求头字段</h4><p>如图所示：<br></p>
+<h5 id="Host-主机和端口号。"><a href="#Host-主机和端口号。" class="headerlink" title="Host:主机和端口号。"></a>Host:主机和端口号。</h5><h5 id="Connection：客户端和服务器链接的类型"><a href="#Connection：客户端和服务器链接的类型" class="headerlink" title="Connection：客户端和服务器链接的类型"></a>Connection：客户端和服务器链接的类型</h5><pre><code>1. http1.1使用的keep-alive为默认值，即长连接。而不是短连接。  
+2. 服务器收到请求后：  
+    1. 服务器支持keep-alive, 会回复一个包含 Connection:keep-alive 的响应，不关闭连接；
+    2. 如果 Server 不支持 keep-alive，回复一个包含 Connection:close 的响应，关闭连接。
+3. 如果client收到包含 Connection:keep-alive 的响应，向同一个连接发送下一个请求，直到一方主动关闭连接。  
+</code></pre><p><strong><em>keep-alive在很多的情况之下是能够重新连接，减少资源的消耗，缩短响应的时间。</em></strong>  </p>
+<h5 id="User-Agent-浏览器名称"><a href="#User-Agent-浏览器名称" class="headerlink" title="User-Agent (浏览器名称)"></a>User-Agent (浏览器名称)</h5><h5 id="Accept-传输文件类型"><a href="#Accept-传输文件类型" class="headerlink" title="Accept (传输文件类型)"></a>Accept (传输文件类型)</h5><p>Accept: <em>/</em>：表示什么都可以接收。  </p>
+<p>Accept：image/gif：表明客户端希望接受GIF图像格式的资源；</p>
+<p>Accept：text/html：表明客户端希望接受html文本。</p>
+<p>Accept: text/html, application/xhtml+xml;q=0.9, image/<em>;q=0.8：表示浏览器支持的 MIME 类型分别是 html文本、xhtml和xml文档、所有的图像格式资源。<br>**</em>q是权重系数，范围 0 =&lt; q &lt;= 1，q 值越大，请求越倾向于获得其“;”之前的类型表示的内容。若没有指定q值，则默认为1，按从左到右排序顺序；若被赋值为0，则用于表示浏览器不接受此内容类型。***<br><a href="http://blog.sina.com.cn/s/blog_866e403f010179f1.html" target="_blank" rel="noopener">详情查看这里</a>  </p>
+<h5 id="Accept-Encoding（文件编解码格式）"><a href="#Accept-Encoding（文件编解码格式）" class="headerlink" title="Accept-Encoding（文件编解码格式）"></a>Accept-Encoding（文件编解码格式）</h5><p>指浏览器可接受的编码方式。编码方式不同于文件的格式，为了压缩文件并加速传递的速度。<br>例如：<br>Accept-Encoding:gzip;q=1.0, identity; q=0.5, *;q=0  </p>
+<h5 id="Accept-Language（语言种类）"><a href="#Accept-Language（语言种类）" class="headerlink" title="Accept-Language（语言种类）"></a>Accept-Language（语言种类）</h5><p>浏览器可接受的语言种类，en或者zh。  </p>
+<h5 id="Accept-Charset（字符编码）"><a href="#Accept-Charset（字符编码）" class="headerlink" title="Accept-Charset（字符编码）"></a>Accept-Charset（字符编码）</h5><p>浏览器可接受的字符编码。  </p>
+<h5 id="Cookie-（Cookie）"><a href="#Cookie-（Cookie）" class="headerlink" title="Cookie （Cookie）"></a>Cookie （Cookie）</h5><p>浏览器用这个属性向服务器发送cookie，cookie是浏览器中存在一个小型数据体，记载和服务器相关的用户信息，实现会话的功能。  </p>
+<h5 id="Content-Type-POST数据类型"><a href="#Content-Type-POST数据类型" class="headerlink" title="Content-Type (POST数据类型)"></a>Content-Type (POST数据类型)</h5><p>post请求里面表示发送内容的类型。<br>举例：Content-Type = Text/XML; charset=gb2312  </p>
+<h4 id="响应报头"><a href="#响应报头" class="headerlink" title="响应报头"></a>响应报头</h4><p>理论上所有的响应头信息都应该是回应请求头的。但是服务端为了效率，安全，还有其他方面的考虑，会添加相对应的响应头信息，从上图可以看到：</p>
+<h5 id="Cache-Control：must-revalidate-no-cache-private。"><a href="#Cache-Control：must-revalidate-no-cache-private。" class="headerlink" title="Cache-Control：must-revalidate, no-cache, private。"></a>Cache-Control：must-revalidate, no-cache, private。</h5><p>这个值告诉客户端，服务端不希望客户端缓存资源，在下次请求资源时，必须要从新请求服务器，不能从缓存副本中获取资源。</p>
+<p>Cache-Control是响应头中很重要的信息，当客户端请求头中包含Cache-Control:max-age=0请求，明确表示不会缓存服务器资源时,Cache-Control作为作为回应信息，通常会返回no-cache，意思就是说，”那就不缓存呗”。</p>
+<p>当客户端在请求头中没有包含Cache-Control时，服务端往往会定,不同的资源不同的缓存策略，比如说oschina在缓存图片资源的策略就是Cache-Control：max-age=86400,这个意思是，从当前时间开始，在86400秒的时间内，客户端可以直接从缓存副本中读取资源，而不需要向服务器请求。</p>
+<h5 id="Connection：keep-alive"><a href="#Connection：keep-alive" class="headerlink" title="Connection：keep-alive"></a>Connection：keep-alive</h5><p>这个字段作为回应客户端的Connection：keep-alive，告诉客户端服务器的tcp连接也是一个长连接，客户端可以继续使用这个tcp连接发送http请求。</p>
+<h5 id="Content-Encoding-gzip"><a href="#Content-Encoding-gzip" class="headerlink" title="Content-Encoding:gzip"></a>Content-Encoding:gzip</h5><p>告诉客户端，服务端发送的资源是采用gzip编码的，客户端看到这个信息后，应该采用gzip对资源进行解码。</p>
+<h5 id="Content-Type：text-html-charset-UTF-8"><a href="#Content-Type：text-html-charset-UTF-8" class="headerlink" title="Content-Type：text/html;charset=UTF-8"></a>Content-Type：text/html;charset=UTF-8</h5><p>告诉客户端，资源文件的类型，还有字符编码，客户端通过utf-8对资源进行解码，然后对资源进行html解析。通常我们会看到有些网站是乱码的，往往就是服务器端没有返回正确的编码。</p>
+<h5 id="Date：Sun-21-Sep-2016-06-18-21-GMT"><a href="#Date：Sun-21-Sep-2016-06-18-21-GMT" class="headerlink" title="Date：Sun, 21 Sep 2016 06:18:21 GMT"></a>Date：Sun, 21 Sep 2016 06:18:21 GMT</h5><p>这个是服务端发送资源时的服务器时间，GMT是格林尼治所在地的标准时间。http协议中发送的时间都是GMT的，这主要是解决在互联网上，不同时区在相互请求资源的时候，时间混乱问题。</p>
+<h5 id="Expires-Sun-1-Jan-2000-01-00-00-GMT"><a href="#Expires-Sun-1-Jan-2000-01-00-00-GMT" class="headerlink" title="Expires:Sun, 1 Jan 2000 01:00:00 GMT"></a>Expires:Sun, 1 Jan 2000 01:00:00 GMT</h5><p>这个响应头也是跟缓存有关的，告诉客户端在这个时间前，可以直接访问缓存副本，很显然这个值会存在问题，因为客户端和服务器的时间不一定会都是相同的，如果时间不同就会导致问题。所以这个响应头是没有Cache-Control：max-age=*这个响应头准确的，因为max-age=date中的date是个相对时间，不仅更好理解，也更准确。</p>
+<h5 id="Pragma-no-cache"><a href="#Pragma-no-cache" class="headerlink" title="Pragma:no-cache"></a>Pragma:no-cache</h5><p>这个含义与Cache-Control等同。</p>
+<h5 id="Server：Tengine-1-4-6"><a href="#Server：Tengine-1-4-6" class="headerlink" title="Server：Tengine/1.4.6"></a>Server：Tengine/1.4.6</h5><p>这个是服务器和相对应的版本，只是告诉客户端服务器的信息。</p>
+<h5 id="Transfer-Encoding：chunked"><a href="#Transfer-Encoding：chunked" class="headerlink" title="Transfer-Encoding：chunked"></a>Transfer-Encoding：chunked</h5><p>这个响应头告诉客户端，服务器发送的资源的方式是分块发送的。一般分块发送的资源都是服务器动态生成的，在发送时还不知道发送资源的大小，所以采用分块发送，每一块都是独立的，独立的块都能标示自己的长度，最后一块是0长度的，当客户端读到这个0长度的块时，就可以确定资源已经传输完了。</p>
+<h5 id="Vary-Accept-Encoding"><a href="#Vary-Accept-Encoding" class="headerlink" title="Vary: Accept-Encoding"></a>Vary: Accept-Encoding</h5><p>告诉缓存服务器，缓存压缩文件和非压缩文件两个版本，现在这个字段用处并不大，因为现在的浏览器都是支持压缩的。</p>
+<h4 id="浏览器作用"><a href="#浏览器作用" class="headerlink" title="浏览器作用"></a><font color="#DC143C">浏览器作用</font></h4><ol>
+<li><font color="#DC143C"> 构造数据包，包含请求头和消息体。 </font> 请求头包含了本地的路由器的MAC地址和所要请求的服务器IP地址。消息体包含了所要请求的内容。</li>
+<li><font color="#DC143C"> 渲染获取的数据，图像，声音，视频，文字等。 </font></li>
+<li><font color="#DC143C"> 浏览器本身就是代码，而这个代码是可以进行分解为组件，可以重写以及重用。 </font>  
+
+
+</li>
+</ol>
+<h4 id="urllib库"><a href="#urllib库" class="headerlink" title="urllib库"></a><font color="#DC143C">urllib库</font></h4><font color="#DC143C">urllib 以及 urllib 都是python的标准库。 </font> py2中使用的是 urllib2，但是在py3中，urllib2改名为 urllib（即原来的urllib2）。被分成了一些子模块，例如： urllib.request, urllib.parse,  urllib.error等等。<br><br><br>####  <font color="#DC143C">常用状态码 </font><br><font color="#228B22"> 1xx： 临时响应，表示服务器已经接受部分的请求，要求客户端继续提交其余的请求信息才能完成整个的处理过程。<br><br>100：Continue（继续） 请求者应当继续提出请求。 服务器返回此代码表示已收到请求的第一部分，正在等待其余部分。<br>101：Switching Protocols（切换协议） 请求者已要求服务器切换协议，服务器已确认并准备切换。<br><hr></font><br> <font color="#FF69B4"><br>2xx:请求成功<br>200：OK，服务器已经处理请求。<br>201：请求成功，并且服务器已经创建资源。<br>202：接受请求，但是还未处理请求。<br>203   Non-Authoritative Information（非授权信息）  服务器已成功处理了请求，但返回的信息可能来自另一来源。<br>204   No Content（无内容）  服务器成功处理了请求，但没有返回任何内容。<br>205   Reset Content（重置内容） 服务器成功处理了请求，但没有返回任何内容。<br>206   Partial Content（部分内容）  服务器成功处理了部分 GET 请求。<br></font><br><hr><br><br><font color="#DC143C"><br>3xx: 重定向<br>300   Multiple Choices（多种选择）  针对请求，服务器可执行多种操作。 服务器可根据请求者 (user agent) 选择一项操作，或提供操作列表供请求者选择。<br>301   Moved Permanently（永久移动）  请求的网页已永久移动到新位置。 服务器返回此响应（对 GET 或 HEAD 请求的响应）时，会自动将请求者转到新位置。<br>302   Found（临时移动）  服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求。<br>303   See Other（查看其他位置） 请求者应当对不同的位置使用单独的 GET 请求来检索响应时，服务器返回此代码。<br>304：未修改，使用是缓存的内容。<br>305   Use Proxy（使用代理） 请求者只能使用代理访问请求的网页。 如果服务器返回此响应，还表示请求者应使用代理。<br>307   Temporary Redirect（临时重定向）  服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求。<br></font><br><hr><br><br><font color="#228B22"><br>4XX：表示请求错误，服务器无法处理。<br>400：请求错误。<br>401：需要授权的信息才能处理请求。<br>403： 禁止访问。<br>404： 找不到页面。<br>405： 禁用所请求所用的方法。<br>406： 不接受请求。无法使用请求的内容特性响应页面。<br>407：需要代理授权。 和401类似，但是指定请求者应当授权使用代理。<br>408： 请求超时。<br>409   Conflict（冲突）  服务器在完成请求时发生冲突。 服务器必须在响应中包含有关冲突的信息。<br>410   Gone（已删除）  如果请求的资源已永久删除，服务器就会返回此响应。<br>411   Length Required（需要有效长度） 服务器不接受不含有效内容长度标头字段的请求。<br>412   Precondition Failed（未满足前提条件） 服务器未满足请求者在请求中设置的其中一个前提条件。<br>413   Request Entity Too Large（请求实体过大） 服务器无法处理请求，因为请求实体过大，超出服务器的处理能力。<br>414   Request-URI Too Long（请求的 URI 过长） 请求的 URI（通常为网址）过长，服务器无法处理。<br>415   Unsupported Media Type（不支持的媒体类型） 请求的格式不受请求页面的支持。<br>416   Requested Range Not Satisfiable（请求范围不符合要求） 如果页面无法提供请求的范围，则服务器会返回此状态代码。<br>417   Expectation Failed（未满足期望值） 服务器未满足”期望”请求标头字段的要求。<br></font><br><hr><br><font color="#DC143C"><br>5XX:服务器错误，而不是请求的错误。<br>500： 服务器内部错误，无法完成请求。<br>501：服务器不具备完成请求的功能， 例如，服务器无法识别请求的方法会返回这样的代码。   、<br>502： 错误网关，服务器作为网关或者代理，从上游的服务器收到的无效的响应。<br>503: 服务器当前不可用，例如超载或者停机维护。通常只是暂时的状态。<br>504： 网关超时，服务器作为网关或者代理，没有从上游的服务器获取到请求。<br>505： 服务器不支持http版本。<br></font>
+
+
+
+
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/11/Python序列化和反序列化/" rel="next" title="Python序列化和反序列化">
+                <i class="fa fa-chevron-left"></i> Python序列化和反序列化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/18/Requests使用/" rel="prev" title="Requests使用">
+                Requests使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cooper</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求头字段"><span class="nav-number">1.</span> <span class="nav-text">请求头字段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Host-主机和端口号。"><span class="nav-number">1.1.</span> <span class="nav-text">Host:主机和端口号。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Connection：客户端和服务器链接的类型"><span class="nav-number">1.2.</span> <span class="nav-text">Connection：客户端和服务器链接的类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#User-Agent-浏览器名称"><span class="nav-number">1.3.</span> <span class="nav-text">User-Agent (浏览器名称)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Accept-传输文件类型"><span class="nav-number">1.4.</span> <span class="nav-text">Accept (传输文件类型)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Accept-Encoding（文件编解码格式）"><span class="nav-number">1.5.</span> <span class="nav-text">Accept-Encoding（文件编解码格式）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Accept-Language（语言种类）"><span class="nav-number">1.6.</span> <span class="nav-text">Accept-Language（语言种类）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Accept-Charset（字符编码）"><span class="nav-number">1.7.</span> <span class="nav-text">Accept-Charset（字符编码）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cookie-（Cookie）"><span class="nav-number">1.8.</span> <span class="nav-text">Cookie （Cookie）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Content-Type-POST数据类型"><span class="nav-number">1.9.</span> <span class="nav-text">Content-Type (POST数据类型)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应报头"><span class="nav-number">2.</span> <span class="nav-text">响应报头</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Cache-Control：must-revalidate-no-cache-private。"><span class="nav-number">2.1.</span> <span class="nav-text">Cache-Control：must-revalidate, no-cache, private。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Connection：keep-alive"><span class="nav-number">2.2.</span> <span class="nav-text">Connection：keep-alive</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Content-Encoding-gzip"><span class="nav-number">2.3.</span> <span class="nav-text">Content-Encoding:gzip</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Content-Type：text-html-charset-UTF-8"><span class="nav-number">2.4.</span> <span class="nav-text">Content-Type：text/html;charset=UTF-8</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Date：Sun-21-Sep-2016-06-18-21-GMT"><span class="nav-number">2.5.</span> <span class="nav-text">Date：Sun, 21 Sep 2016 06:18:21 GMT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Expires-Sun-1-Jan-2000-01-00-00-GMT"><span class="nav-number">2.6.</span> <span class="nav-text">Expires:Sun, 1 Jan 2000 01:00:00 GMT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pragma-no-cache"><span class="nav-number">2.7.</span> <span class="nav-text">Pragma:no-cache</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Server：Tengine-1-4-6"><span class="nav-number">2.8.</span> <span class="nav-text">Server：Tengine/1.4.6</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Transfer-Encoding：chunked"><span class="nav-number">2.9.</span> <span class="nav-text">Transfer-Encoding：chunked</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Vary-Accept-Encoding"><span class="nav-number">2.10.</span> <span class="nav-text">Vary: Accept-Encoding</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浏览器作用"><span class="nav-number">3.</span> <span class="nav-text">浏览器作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#urllib库"><span class="nav-number">4.</span> <span class="nav-text">urllib库</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cooper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

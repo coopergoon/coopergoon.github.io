@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="之前总结了Redis基础，那个实在太low，现在重新正儿八经老老实实真真切切安安分分实实在在认认真真的把这部分写写。后续的redis的高级部分总结下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis基础">
+<meta property="og:url" content="http://yoursite.com/2017/10/21/Redis基础/index.html">
+<meta property="og:site_name" content="Cooper">
+<meta property="og:description" content="之前总结了Redis基础，那个实在太low，现在重新正儿八经老老实实真真切切安安分分实实在在认认真真的把这部分写写。后续的redis的高级部分总结下。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-22T16:38:31.760Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis基础">
+<meta name="twitter:description" content="之前总结了Redis基础，那个实在太low，现在重新正儿八经老老实实真真切切安安分分实实在在认认真真的把这部分写写。后续的redis的高级部分总结下。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2017/10/21/Redis基础/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Redis基础 | Cooper</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>Zeitplan</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/21/Redis基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cooper">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis基础
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2017-10-21 01:12:20" itemprop="dateCreated datePublished" datetime="2017-10-21T01:12:20+08:00">2017-10-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2017-10-23 00:38:31" itemprop="dateModified" datetime="2017-10-23T00:38:31+08:00">2017-10-23</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前总结了Redis基础，那个实在太low，现在重新正儿八经老老实实真真切切安安分分实实在在认认真真的把这部分写写。后续的redis的高级部分总结下。  </p>
+<a id="more"></a>  
+<h3 id="Redis简介"><a href="#Redis简介" class="headerlink" title="Redis简介"></a>Redis简介</h3><p>redis是远程内存数据库。性能强劲，具有复制特性，redis的数据结构是帮助用户解决问题的，不会像其他的数据库要求用户扭曲问题来适应数据库。<br>重点是，通过复制，持久化，客户端分片等特性，可以很方便的将redis扩展程一个能够包含数百GB数据，每秒处理上百万次请求的系统。<br>redis是速度很快的非关系型数据库。，可以存储键和5种不同的数据类型的值，键值之间是映射关系。， 还可以将内的键值对数据持久化到硬盘，可以复制特性扩展读性能， 可以使用客户端扩展写性能。  </p>
+<p><hr><br>redis不使用表，也不会预定义或者强制要求redis对不同的数据进行关联。  </p>
+<p>如下图：<br>  </p>
+<h3 id="Redis数据结构"><a href="#Redis数据结构" class="headerlink" title="Redis数据结构"></a>Redis数据结构</h3><p>redis中有5中数据结构：字符串，列表，集合，有序集合，哈希（散列表）  </p>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p><font color="#DC143C"> 字符串是以键值的形式存储。 </font><br>    set name ChenZhiqiang<br>name是键，ChenZhiqiang是值。     </p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>获取已经存储的键的值</td>
+</tr>
+<tr>
+<td>SET</td>
+<td>设置存储的键和值</td>
+</tr>
+<tr>
+<td>DEL</td>
+<td>删除已经存储的键的值</td>
+</tr>
+</tbody>
+</table>
+<pre><code>127.0.0.1:6379&gt; set name chenzhiqiang   
+OK
+127.0.0.1:6379&gt; get name
+&quot;chenzhiqiang&quot;
+127.0.0.1:6379&gt; get age            # 获取不存的值返回nil，在和python交互中返回的是None
+(nil)
+127.0.0.1:6379&gt; del name        #删除，返回的是返回的删除的条目数
+(integer) 1
+127.0.0.1:6379&gt; get name  
+(nil)
+127.0.0.1:6379&gt;   
+</code></pre><p><hr></p>
+<h5 id="与Python交互"><a href="#与Python交互" class="headerlink" title="与Python交互"></a>与Python交互</h5><p>redis和python交互：  </p>
+<pre><code># coding=utf8
+import redis
+
+con = redis.Redis()    # 创建链接对象
+con.set(&apos;hello&apos;, &apos;world&apos;)         #使用set方法
+response_hello = con.get(&apos;hello&apos;)  
+
+response_age = con.get(&apos;age&apos;)
+
+print(&apos;hello的值：%s&apos; % response_hello) 
+print(&apos;-------------&apos;)  
+print(&apos;age的值：%s&apos; % response_age)    # 获取不存在的值
+</code></pre><p>返回：   </p>
+<pre><code>python@ubuntu:~/Desktop$ python redis_test.py 
+hello的值：world
+-------------
+age的值：None
+</code></pre><h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><p>redis支持链表结构，列表的底层是链表构成的。 一个列表结构可以有序的存储多个字符串。  和其他的编程语言一样，LPSUH和RPUSH分别将元素推入列表的左端和右端；LPOP和RPOP分别将元素从左端和右端弹出元素；LINDEX获取给定位置上的元素。   </p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LPUSH</td>
+<td>左端添加元素</td>
+</tr>
+<tr>
+<td>RPUSH</td>
+<td>右端添加元素</td>
+</tr>
+<tr>
+<td>LPOP</td>
+<td>从左端弹出元素</td>
+</tr>
+<tr>
+<td>RPOP</td>
+<td>从右端弹出元素</td>
+</tr>
+<tr>
+<td>LINDEX</td>
+<td>获取给定位置的元素</td>
+</tr>
+<tr>
+<td>LRANGE</td>
+<td>获取给定范围的所有元素</td>
+</tr>
+</tbody>
+</table>
+<hr>    
+
+<pre><code>127.0.0.1:6379&gt; rpush list-key item1 
+(integer) 1
+127.0.0.1:6379&gt; lpush list-key item2
+(integer) 2
+127.0.0.1:6379&gt; lrange list-key 0 -1   # 注意添加的顺序，显示添加的右边的item1，再是左边的item2 
+1) &quot;item2&quot;
+2) &quot;item1&quot; 
+127.0.0.1:6379&gt; lindex list-key 1   # 指定索引获取元素  
+&quot;item1&quot;  
+
+127.0.0.1:6379&gt; lpop list-key   # 从左端弹出一个元素，一次只弹出一个元素
+&quot;item2&quot;
+127.0.0.1:6379&gt; lrange list-key 0 -1
+1) &quot;item1&quot;
+127.0.0.1:6379&gt; 
+</code></pre><p><hr>  </p>
+<h5 id="与Python交互-1"><a href="#与Python交互-1" class="headerlink" title="与Python交互"></a>与Python交互</h5><p>和python 的交互中，列表返回的中括号的列表形式：  </p>
+<pre><code># coding=utf8
+import redis
+
+con = redis.Redis()  
+
+con.lpush(&apos;lits&apos;, &apos;item2&apos;)
+con.rpush(&apos;list&apos;, &apos;item1&apos;)
+response_list = con.lrange(&apos;list&apos;, 0 ,-1)
+print(response_list) 
+</code></pre><p>输出：    </p>
+<pre><code>python@ubuntu:~/Desktop$ python redis_test.py 
+[&apos;item1&apos;, &apos;item1&apos;]
+</code></pre><h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><p>redis中列表和集合都是存储多个值的，但是，集合是不同存相同的值的，但是列表可以。另外，使用的方法名也是不同的。  redis的集合是使用的无序的方式存储元素，所以不能象列表一样从某一端将元素推入集合。  </p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SADD</td>
+<td>添加元素</td>
+</tr>
+<tr>
+<td>SREM</td>
+<td>如果给定的元素存在集合中，那就移除这个元素</td>
+</tr>
+<tr>
+<td>SISMEMBER</td>
+<td>检查某元素是否在集合中</td>
+</tr>
+<tr>
+<td>SMEMBERS</td>
+<td>返回所有的集合元素</td>
+</tr>
+<tr>
+<td>SINSERT</td>
+<td>交集计算</td>
+</tr>
+<tr>
+<td>SUNION</td>
+<td>并集计算</td>
+</tr>
+<tr>
+<td>SDIFF</td>
+<td>差集计算</td>
+</tr>
+</tbody>
+</table>
+<p>SISMEMBER： 是 set is member 的缩写<br>SMEMBERS： 是 set members 的缩写  </p>
+<pre><code>127.0.0.1:6379&gt; sadd set-key item 
+(integer) 1
+127.0.0.1:6379&gt; sadd set-key item2
+(integer) 1
+127.0.0.1:6379&gt; sadd set-key item    # 添加一个已经存在的值，返回的是0
+(integer) 0
+127.0.0.1:6379&gt; smembers set-key   # 注意顺序，set是无序的，并不是按照添加的顺序返回的，
+1) &quot;item2&quot;
+2) &quot;item&quot;
+127.0.0.1:6379&gt; sismember set-key item     # 查看存在的值，返回1，和python交互中返回的是True
+(integer) 1
+127.0.0.1:6379&gt; sismember set-key item3   # 查看存在的值，返回0，和python交互中返回的是False
+(integer) 0
+</code></pre><p><hr></p>
+<h5 id="与Python交互-2"><a href="#与Python交互-2" class="headerlink" title="与Python交互"></a>与Python交互</h5><p>和python交互，返回的是集合中包含的列表：   </p>
+<pre><code>import redis
+
+con = redis.Redis()  
+
+con.sadd(&apos;set-key&apos;, &apos;item&apos;)
+con.sadd(&apos;set-key&apos;, &apos;item2&apos;) 
+response_set = con.smembers(&apos;set-key&apos;) 
+print(response_set)
+</code></pre><p>输出：  </p>
+<pre><code>python@ubuntu:~/Desktop$ python redis_test.py 
+set([&apos;item2&apos;, &apos;item&apos;])
+</code></pre><h4 id="散列"><a href="#散列" class="headerlink" title="散列"></a>散列</h4><p>python的字典就是用散列表实现的。  散列也成哈希。<br>散列可以存储多个关键字对之间的映射。值，既可以是字符串也可以是数字，还可以对散列表的数字值进行自增或者自减操作。<br>实际，就是定义个键名（即是散列），在这个键名之下，又可以存的多个键值形式数据。    </p>
+
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HSET</td>
+<td>在散列里面关联给定的 键值对</td>
+</tr>
+<tr>
+<td>GSET</td>
+<td>获取指定的散列键的值</td>
+</tr>
+<tr>
+<td>HGETALL</td>
+<td>获取散列中所有的键值对</td>
+</tr>
+<tr>
+<td>HDEL</td>
+<td>如果给定的键存在散列表中，那就移除</td>
+</tr>
+</tbody>
+</table>
+<pre><code>127.0.0.1:6379&gt; hset hash-key sub va1
+(integer) 1
+127.0.0.1:6379&gt; hset hash-key sub2 va2
+(integer) 1
+127.0.0.1:6379&gt; hset hash-key sub va1  # 添加一个已经存在的返回的是0
+(integer) 0
+127.0.0.1:6379&gt; hgetall hash-key        # 获取全部的键值对，键值是分开的。python交互中是以字典格式显示
+1) &quot;sub&quot;
+2) &quot;va1&quot;
+3) &quot;sub2&quot;
+4) &quot;va2&quot;
+127.0.0.1:6379&gt; hget hash-key sub    # 获取某一个值
+&quot;va1&quot;
+127.0.0.1:6379&gt; hdel hash-key sub        删除某一个值
+(integer) 1
+127.0.0.1:6379&gt; hgetall hash-key
+1) &quot;sub2&quot;
+2) &quot;va2&quot;
+</code></pre><h5 id="与Python交互-3"><a href="#与Python交互-3" class="headerlink" title="与Python交互"></a>与Python交互</h5><p>注意的一点是，获取返回的键值的时候，python是以字典格式显示的。  </p>
+<pre><code># coding=utf8
+import redis
+
+con = redis.Redis()  
+
+con.hset(&apos;hash-key&apos;, &apos;sub2&apos;, &apos;va1&apos;)
+con.hset(&apos;hash-key&apos;, &apos;sub3&apos;, &apos;va1&apos;)
+
+response_hash_sub2 = con.hget(&apos;hash-key&apos;, &apos;sub2&apos;) 
+
+response_hash = con.hgetall(&apos;hash-key&apos;)
+
+print(response_hash_sub2)
+print(response_hash)
+</code></pre><p>输出：    </p>
+<pre><code>python@ubuntu:~/Desktop$ python redis_test.py 
+va1
+{&apos;sub2&apos;: &apos;va1&apos;, &apos;sub&apos;: &apos;va1&apos;, &apos;sub3&apos;: &apos;va1&apos;} 
+</code></pre><h4 id="有序集合"><a href="#有序集合" class="headerlink" title="有序集合"></a>有序集合</h4><p>有序集合和散列一样，存储的都是键值对，有序集合的键成为成员，每个成员各不相同；有序集合的值成为分值，分值鼻血为浮点数。<br>有序集合是既可以根据成员（键） 访问元素【这点和散列一样】， 又可以根据分值以及分值的排列顺来访问元素的结构。 </p>
+   
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+<th>redis-py</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ZADD</td>
+<td>添加元素</td>
+</tr>
+<tr>
+<td>ZRANGE</td>
+<td>根据有序排列中所处的位置，从有序集合获取多个元素</td>
+</tr>
+<tr>
+<td>ZRANGEBYSCORE</td>
+<td>根据分值范围获取集合中的元素</td>
+<td>zrangebyscore(name, min, max, start=None, num=None, withscores=False, score_cast_func= )</td>
+</tr>
+<tr>
+<td>ZREM</td>
+<td>如果成员存在于有序集合，移除</td>
+</tr>
+</tbody>
+</table>
+<pre><code>127.0.0.1:6379&gt; zadd zet 22 m1   # 注意添加的顺序： 22是分值，m1是成员名
+(integer) 1
+
+127.0.0.1:6379&gt; zadd zet m2 1212    # 如果顺序不对会报错
+(error) ERR value is not a valid float 
+
+127.0.0.1:6379&gt; zrange zet 0 -1 withscores # 返回的是成员以及分值
+1) &quot;m1&quot;
+2) &quot;22&quot;
+127.0.0.1:6379&gt; zrange zet 0 -1     # 不加withscores返回的只是成员名
+1) &quot;m1&quot;
+
+127.0.0.1:6379&gt; zrangebyscore zet 0 800 withscores   
+1) &quot;3&quot;
+2) &quot;2&quot;
+3) &quot;m1&quot;
+4) &quot;22&quot;
+127.0.0.1:6379&gt; zrangebyscore zet 0 2 withscores    # 根据分值来筛选输出 0 2 就是分值范围
+1) &quot;3&quot;
+2) &quot;2&quot;
+127.0.0.1:6379&gt; zrangebyscore zet 0 1 withscores    
+(empty list or set)
+</code></pre><p>重点：分值必须是数字，成员可以是也可以不是。   </p>
+<h5 id="与Python交互-4"><a href="#与Python交互-4" class="headerlink" title="与Python交互"></a>与Python交互</h5><p>更详细的指令说明，<a href="http://lawtech0902.com/2017/03/27/Redis-2/" target="_blank" rel="noopener">查看这里</a></p>
+<h4 id="redis的发布订阅"><a href="#redis的发布订阅" class="headerlink" title="redis的发布订阅"></a>redis的发布订阅</h4><p>订阅者（listener）负责订阅(channel)； 发送者负责向频道发送二进制字符串消息。每当有消息发送给频道的时候，频道的订阅这都会收到消息。  </p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>subscribe</td>
+<td>订阅给定的一个或多个频道</td>
+</tr>
+<tr>
+<td>unsubscribe</td>
+<td>取消订阅一个或多个频道</td>
+</tr>
+<tr>
+<td>publish</td>
+<td>向给定的频道发送消息</td>
+</tr>
+<tr>
+<td>psubsribe</td>
+<td>订阅给定模式匹配的所有频道</td>
+</tr>
+<tr>
+<td>punsubscribe</td>
+<td>退订给定的模式</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/19/Mysql事物隔离性/" rel="next" title="Mysql事物隔离性">
+                <i class="fa fa-chevron-left"></i> Mysql事物隔离性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/25/JS笔记/" rel="prev" title="JS笔记">
+                JS笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cooper</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis简介"><span class="nav-number">1.</span> <span class="nav-text">Redis简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis数据结构"><span class="nav-number">2.</span> <span class="nav-text">Redis数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串"><span class="nav-number">2.1.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#与Python交互"><span class="nav-number">2.1.1.</span> <span class="nav-text">与Python交互</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列表"><span class="nav-number">2.2.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#与Python交互-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">与Python交互</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集合"><span class="nav-number">2.3.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#与Python交互-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">与Python交互</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#散列"><span class="nav-number">2.4.</span> <span class="nav-text">散列</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#与Python交互-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">与Python交互</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有序集合"><span class="nav-number">2.5.</span> <span class="nav-text">有序集合</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#与Python交互-4"><span class="nav-number">2.5.1.</span> <span class="nav-text">与Python交互</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis的发布订阅"><span class="nav-number">2.6.</span> <span class="nav-text">redis的发布订阅</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cooper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

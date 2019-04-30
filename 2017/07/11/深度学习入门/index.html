@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本篇是关于深度学习入门的内容。总结来自Youtube上开发者课堂视频。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习入门">
+<meta property="og:url" content="http://yoursite.com/2017/07/11/深度学习入门/index.html">
+<meta property="og:site_name" content="Cooper">
+<meta property="og:description" content="本篇是关于深度学习入门的内容。总结来自Youtube上开发者课堂视频。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-17T09:33:54.290Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习入门">
+<meta name="twitter:description" content="本篇是关于深度学习入门的内容。总结来自Youtube上开发者课堂视频。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2017/07/11/深度学习入门/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>深度学习入门 | Cooper</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>Zeitplan</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/11/深度学习入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cooper">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深度学习入门
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2017-07-11 21:00:49" itemprop="dateCreated datePublished" datetime="2017-07-11T21:00:49+08:00">2017-07-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2017-10-17 17:33:54" itemprop="dateModified" datetime="2017-10-17T17:33:54+08:00">2017-10-17</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇是关于深度学习入门的内容。总结来自Youtube上开发者课堂视频。<br><a id="more"></a></p>
+<h2 id="第一节-ML-机器学习"><a href="#第一节-ML-机器学习" class="headerlink" title="第一节 ML 机器学习"></a>第一节 ML 机器学习</h2><p>是一门交叉学科，涉及计算机，神经学，统计学，概率论，逼近论，图分析，算法复杂度等。</p>
+<h3 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h3><p>是人工智能AI的核心。主要使用的归纳综合，而不是演绎。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>通过一系列的算法实现使计算机不通过明显的外部的指示，而是通过自己对数据的学习，建模，并且利用建立好的模型，和新的输入进行预测的学科。</p>
+<h2 id="机器的学习"><a href="#机器的学习" class="headerlink" title="机器的学习"></a>机器的学习</h2><p>针对经验E（experience）和一系列的任务T（Task）和一定表现的衡量P，随着经验的激烈，针对定义好的任务可以提高表现，就可以说机器有学习的能力。<br>下棋，语音识别，以及自动驾驶。</p>
+<h2 id="第三节-深度学习-DL"><a href="#第三节-深度学习-DL" class="headerlink" title="第三节 深度学习 DL"></a>第三节 深度学习 DL</h2><p>是基于机器学习，机器学习的一个分支。以人的大脑结构的神经网络算法为模型，伴随大数据和计算能力的提高而产生的一系列的算法。    </p>
+<p>Data Mining 数据挖掘 </p>
+<p>应用于图像处理与计算机视觉，自然语言处理以及语音识别等领域。</p>
+<p>ImageNet 网站<br>deep neural networkcomputer vision 深度神经网络算法</p>
+<h2 id="第四节-ML基础概念"><a href="#第四节-ML基础概念" class="headerlink" title="第四节 ML基础概念"></a>第四节 ML基础概念</h2><p>概念学习：类比人类学习的概念：对鸟，车等概念认知，对某一类的事物的不断的认知才形成的认识最终完成对这个事物的学习。  </p>
+<p><code>定义：从有关的布尔函数的输入输出训练的样例中推断出该布尔函数，即给出多个函数的布尔值作为样例，通过多个样例机器自动的推断出一个布尔函数。</code></p>
+<p>案例：<br></p>
+<p><code>概念</code>：定义在实例instance集合之上，每一份实例（样例）构成的这个集合，这个集合用X表示。<br>X:样例的集合<br>x：每一个样例<br>y：学习的目标结果<br><code>目标概念</code>：最终的结果。<br>c（x）=1 或 0  也可说c（x）= y </p>
+<p><code>训练集</code>： training set 产生模型或算法的数据库，即原始数据</p>
+<p><code>测试集</code>：测试已经学习好的模型或算法的数据，testing set</p>
+<p><code>特征向量</code>：features 属性的集合，附属于每一个实例。每个特征值下的值就是特征向量，例如天气下的晴，或者阴 温度下的暖，</p>
+<p><code>标记</code>：class lable，即每一个实例的学习的最终结果，例如下图的享受运动。 </p>
+<p><code>正例, 反例</code>：布尔值，0 或者 1,对应的享受运动的否或者是。</p>
+<p>案例2：<br>案例2—硅谷房价<br><br>特征向量是面积，学区。<br>学习的概念是房价， class label。</p>
+<p><hr><br>分类 (classification): 目标标记为类别型数据(category)<br>回归(regression): 目标标记为连续性数值 (continuous numeric value)<br>目标标记为类别型数据，称为分类。，即值为布尔型，案例1中小明是否享受游泳<br>目标标记为连续性数值，称为回归。即值为连续型数据，案例2中硅谷房价的预估。<br>分类不同解决的方法不同。</p>
+<p><hr><br><code>有监督学习</code>:训练集有类别标记，目标标记是布尔值<br><code>无监督学习</code>：训练集中无类别标记，目标标记不存在或不清楚。<br><code>半监督学习</code>：训练集中有的有类别标记，有的没有</p>
+<h2 id="机器学习步骤"><a href="#机器学习步骤" class="headerlink" title="机器学习步骤"></a>机器学习步骤</h2><ul>
+<li>数据分为训练集和测试集</li>
+<li>用训练集和训练集向量训练算法</li>
+<li>用测试集测试学习到的算法</li>
+</ul>
+<h2 id="第五节-决策树理论-监督学习"><a href="#第五节-决策树理论-监督学习" class="headerlink" title="第五节 决策树理论 监督学习"></a>第五节 决策树理论 监督学习</h2><p>机器学习分类和预测算法的评估标准：</p>
+<ul>
+<li>准确率</li>
+<li>速度</li>
+<li>强壮性：当某些值缺失或者有不规则的数据的时候，算法是否还会准确</li>
+<li>可规模性：数据规模的大的时候是否还是可用</li>
+<li>可解释性 </li>
+</ul>
+<p>决策树：decision tree，类似流程图，每个内部节点表示在一个属性上的测试，每个分支代表一个属性输出，每个树叶代表类或者类的分布。树的最顶层是根节点。<br><br>机器学习中重要的算法是决策树。<br>最顶层的根节点就是最终的目标标记结果。<br>分出的分支是每个属性。<br>当属性有连续的变量的时候，要进行离散化，设置一个值作为分界点。</p>
+<p>信息熵：<br>信息和抽象，如何度量？<br>1948年，香农提出了 ”信息熵(entropy)“的概念<br>一条信息的信息量大小和它的不确定性有直接的关系，要搞清楚一件非常非常不确定的事情，或者<br>是我们一无所知的事情，需要了解大量信息==&gt;信息量的度量就等于不确定性的多少</p>
+<p>例子：猜世界杯冠军，假如一无所知，猜多少次？<br>每个队夺冠的几率不是相等的</p>
+<p>比特(bit)来衡量信息的多少</p>
+
+<p>变量的不确定性越大，熵也就越大</p>
+<p>树以代表训练样本的单个结点开始（步骤1）。<br>如果样本都在同一个类，则该结点成为树叶，并用该类标号（步骤2 和3）。(即学习目标只有一种结果，情况很少见)<br>否则，算法使用称为信息增益的基于熵的度量作为启发信息，选择能够最好地将样本分类的属性（步骤6）。该属性成为该结点的“测试”或“判定”属性（步骤7）。在算法的该版本中，<br>所有的属性都是分类的，即离散值。连续属性必须离散化，比如，属性中有年龄10,20,40,33等数字，此时需要把年龄按段划分下，进行离散化。<br>对测试属性的每个已知的值，创建一个分枝，并据此划分样本（步骤8-10）。<br>算法使用同样的过程，递归地形成每个划分上的样本判定树。一旦一个属性出现在一个结点上，就不必该结点的任何后代上考虑它（步骤13）。<br>递归划分步骤仅当下列条件之一成立停止：<br>(a) 给定结点的所有样本属于同一类（步骤2 和3）。<br>(b) 没有剩余属性可以用来进一步划分样本（步骤4）。在此情况下，使用多数表决（步骤5）。<br>这涉及将给定的结点转换成树叶，并用样本中的多数所在的类标记它。替换地，可以存放结<br>点样本的类分布。<br>(c) 分枝<br>test_attribute = a i 没有样本（步骤11）。在这种情况下，以 samples 中的多数类<br>创建一个树叶（步骤12）</p>
+<p>其他算法：<br>       C4.5:  Quinlan<br>       Classification and Regression Trees (CART): (L. Breiman, J. Friedman, R. Olshen, C. Stone)<br>       共同点：都是贪心算法，自上而下(Top-down approach)<br>       区别：属性选择度量方法不同： C4.5 （gain ratio), CART(gini index), ID3 (Information Gain)</p>
+<p>如何处理连续性变量的属性？ </p>
+<p>树剪枝叶 （避免overfitting)<br>因为学习集上分的太细，测试集上不会有结果。所以需树剪枝叶。<br>     .1 先剪枝<br>     .2 后剪枝</p>
+<p>决策树的优点：<br>     直观，便于理解，小规模数据集有效     </p>
+<p>决策树的缺点：<br>     处理连续变量不好<br>     类别较多时，错误增加的比较快<br>     可规模性一般</p>
+<h3 id="第六节-决策树-应用"><a href="#第六节-决策树-应用" class="headerlink" title="第六节 决策树 应用"></a>第六节 决策树 应用</h3><p>python 机器学习库：scikit-learn<br>简单高效的数据挖掘和机器学习分析，对所有用户开放，根据不同需求高度可重用性。基于Numpy, SciPy和matplotlib。开源，商用级别：获得 BSD许可。</p>
+<p>覆盖问题领域：<br>          分类（classification)<br>          回归（regression),<br>          聚类（clustering),<br>          降维(dimensionality reduction)<br>          模型选择(model selection)<br>          预处理(preprocessing)</p>
+<p>sklearn对输入的数据的要求：输入的要是数值型的值，而不是字符等。<br>针对于上述的，age属性原来是一维，要转换为三维的:样例1中，<br>    youth：1, middle:0, sensior:0<br>其余的属性同理，都转换为多维的。<br>    youth    middle     senior    high    medium    low    student(no)    student(yes)    fair    execllent    no    yes<br>    1           0       0     1           0     0       1           0             1            0         0     1<br>sklearn自带的包可以直接将数据转换为上述类型的数据。</p>
+<pre><code># coding=utf8
+# 只接受整形数据，要对数据进行转化
+from sklearn.feature_extraction import DictVectorizer
+import csv
+from sklearn import preprocessing
+from sklearn import tree
+# 读写的过程
+from sklearn.externals.six import StringIO
+
+
+allfiledata = open(&apos;./csvfile.csv&apos;, &apos;r&apos;)
+reader = csv.reader(allfiledata)
+header = next(reader)
+
+featureList = []  # 属性以及属性值列表
+lableList = []  # class lable值
+
+for row in header:
+    lableList.append(row[len(row) - 1])
+    # print(lableList)
+    rowDict = {}
+
+    for i in range(1, len(row) - 1):
+        rowDict[header[1]] = row[i]
+
+    featureList.append(rowDict)
+# 得出的形式：[{crefit_rating: fair, age:youth, income:high....}, { 样例2内容 },{ 样例3内容 }.......]
+# print(featureList)
+
+# 特征值列表转换
+vec = DictVectorizer()
+dunmuX = vec.fit_transform(featureList).toarry()  # 将featureList列表, 特征值列表中的字符转换为0或者1的形式
+print(dunmuX)
+
+# class label 转换
+bl = preprocessing.LabelBinarizer()
+dumY = bl.fit_transform(lableList)
+print(dumY)
+# 以上是转换训练集中的内容，为0或1 的形式
+
+# 创建分类器clf
+#  entropy 指明的是使用信息熵的标准
+clf = tree.DecisionTreeClassifier(criterion=&apos;entropy&apos;)  # 后面的参数参见文档。
+# 信息熵的差异作为标准
+clf = clf.fit(dunmuX, dumY)
+# 得出的是决策树的基本信息
+
+
+&quot;&quot;&quot;
+feature_names=vec.get_feature_names() 因为在得出决策树的时候是是转换为01形式的，再次输出的时候
+就需要还原为原来的属性名，age，income等，feature_names就是这样作用
+文件名为dot文件格式，打开是对决策树文字的描述，并不直观
+如果要查看图形化的内容，安装插件
+&quot;&quot;&quot;
+with open(&apos;allinfomationdotfile.dot&apos;, &apos;w&apos;) as f:
+    f = tree.export_graphviz(clf, feature_names=vec.get_feature_names(), out_file=f)
+
+# 以上就会得出学习出来的模型，现在给出一个新的数据，调用预测方法，得出的学习的结果
+newdata = dunmuX[0, :]  # 取出第一个样例，并且改变其中2个数值作为新的数据
+newdata[0] = 1
+newdata[2] = 0
+
+predict = clf.predict(newdata)
+# 输出的结果是列表，内容是所预测的结果，布尔值。
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/10/Python数据分析之Numpy-Panadas使用/" rel="next" title="Python数据分析之Numpy&Panadas使用">
+                <i class="fa fa-chevron-left"></i> Python数据分析之Numpy&Panadas使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/13/最邻近规则分类KNN算法/" rel="prev" title="最邻近规则分类KNN算法">
+                最邻近规则分类KNN算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cooper</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一节-ML-机器学习"><span class="nav-number">1.</span> <span class="nav-text">第一节 ML 机器学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定位"><span class="nav-number">1.1.</span> <span class="nav-text">定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.2.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器的学习"><span class="nav-number">2.</span> <span class="nav-text">机器的学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三节-深度学习-DL"><span class="nav-number">3.</span> <span class="nav-text">第三节 深度学习 DL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四节-ML基础概念"><span class="nav-number">4.</span> <span class="nav-text">第四节 ML基础概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习步骤"><span class="nav-number">5.</span> <span class="nav-text">机器学习步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五节-决策树理论-监督学习"><span class="nav-number">6.</span> <span class="nav-text">第五节 决策树理论 监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第六节-决策树-应用"><span class="nav-number">6.1.</span> <span class="nav-text">第六节 决策树 应用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cooper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

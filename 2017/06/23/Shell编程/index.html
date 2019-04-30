@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文介绍Shell编程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell编程">
+<meta property="og:url" content="http://yoursite.com/2017/06/23/Shell编程/index.html">
+<meta property="og:site_name" content="Cooper">
+<meta property="og:description" content="本文介绍Shell编程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-06-24T14:48:28.095Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shell编程">
+<meta name="twitter:description" content="本文介绍Shell编程。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2017/06/23/Shell编程/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Shell编程 | Cooper</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>Zeitplan</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/23/Shell编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cooper">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Shell编程
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2017-06-23 21:27:59" itemprop="dateCreated datePublished" datetime="2017-06-23T21:27:59+08:00">2017-06-23</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2017-06-24 22:48:28" itemprop="dateModified" datetime="2017-06-24T22:48:28+08:00">2017-06-24</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文介绍Shell编程。</p>
+<a id="more"></a>
+<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><p>bash是在sh基础上开发的，sh是没有补齐的。<br>执行命令的时候，执行的语句会开启一个子进程执行命令，shell进程会切换到后台。执行完毕后shell切换到前台。</p>
+<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p>shell变量是全大写字母加下划线组成，分为：</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><h4 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h4><p>环境变量可以从父进程传给子进程，因此Shell进程的环境变量可以从当前Shell进程传给fork出来的子进程。用printenv命令可以显示当前Shell进程的环境变量。使用env命令能够查看环境变量。</p>
+<h4 id="本地变量"><a href="#本地变量" class="headerlink" title="本地变量"></a>本地变量</h4><p>设定本定变量：</p>
+<pre><code>name=&apos;LiXiaoyang&apos;
+</code></pre><p>这样就是添加本地变量。<br>这种方式只是添加到本地变量中，环境变量是不会存在的。<br>查看设置的变量：</p>
+<pre><code>env | grep &apos;name&apos;    # env打印的是环境变量
+# 此处是没有输出的
+
+set | grep &apos;name&apos;    # set打印的是环境变量以及本地变量。
+name=&apos;&apos;
+</code></pre><p>把本地变量导出为环境变量，使用：</p>
+<pre><code>export    &apos;变量名&apos;
+</code></pre><p>使用export也可以直接将变量设置为环境变量：</p>
+<pre><code>export name=&apos;LiXiaoyang&apos;    # 使用env | grep &apos;name&apos;查看
+</code></pre><p>这样就可在环境变量中查到设置的name=’LiXiaoyang’变量：</p>
+<pre><code>env | grep &apos;name&apos;    # env打印的是环境变量
+name=&apos;LiXiaoyang&apos;
+</code></pre><p><strong>取出变量值：</strong></p>
+<pre><code>echo $name
+LiXiaoyang
+</code></pre><p>注意：取的需加上$符号，不加则不会取到。定义变量的时候不需要加。</p>
+<p><strong>删除环境变量:</strong>      </p>
+<pre><code>unset &apos;变量名&apos;    
+</code></pre><p><strong>区别：</strong><br>环境变量是保存在内存中的，假如说是4g内存，则环境变量是保存在3g大小处的位置。<br>而本地变量是保存在程序的栈中。<br>但在fork一个子进程时候，使用exec执行命令。就会吧程序栈中的本地变量冲掉。但是环境变量的值还在。</p>
+<p>值存在于当前的shell进程。用set命令可以显示当前shell进程中定义的所有变量（环境，本地变量）和函数。<br>环境变量是任何进程都有的概念，本地变量是shell特有的概念。</p>
+<h3 id="查看当前sh类型"><a href="#查看当前sh类型" class="headerlink" title="查看当前sh类型"></a>查看当前sh类型</h3><pre><code>$ echo $SHELL
+/usr/bin/bash
+</code></pre><h3 id="文件名代换（Globbing）"><a href="#文件名代换（Globbing）" class="headerlink" title="文件名代换（Globbing）* ? []"></a>文件名代换（Globbing）* ? []</h3><p>通配符：</p>
+<pre><code>* 匹配0个或者多个任意字符
+? 匹配一个任意字符
+[] 匹配括号中任意一个字符的一次出现
+$ ls /dev/ttyS*
+$ ls ch0?.doc
+$ ls ch0[0-2].doc
+$ ls ch[012]   [0-9].doc
+</code></pre><h3 id="命令代换"><a href="#命令代换" class="headerlink" title="命令代换 $()"></a>命令代换 $()</h3><pre><code>$ DATE=`date`
+$ echo $DATE    #DATE变量是date命令得出的时间，将命令执行的结果赋值给变量DATE。
+可以使`date`或$(date)或 `date方式。
+</code></pre><p>在$()命令括号的内容中的，是执行的命令。不会被赋值给变量。</p>
+<h3 id="算术代换"><a href="#算术代换" class="headerlink" title="算术代换 $(())"></a>算术代换 $(())</h3><pre><code>VAR=45
+echo $((VAR + 3))
+</code></pre><p>用2个小括号套起来，里面的VAR会被取出，并和后面数字运算。但是只能支持+，—，*，/，且是整数。</p>
+<pre><code>$[base#n],其中base表示进制,n按照base进制解释，后面再有运算数，按十进制解释。
+echo $[2#10+11]        # 使用10的2进制进行运算
+echo $[8#10+11]        # 使用10的8进制进行运算
+echo $[10#10+11]
+</code></pre><h3 id="转义字符-反斜杠"><a href="#转义字符-反斜杠" class="headerlink" title="转义字符 \ 反斜杠"></a>转义字符 \ 反斜杠</h3><p> 创建文件名为 $ $ 的文件：</p>
+<pre><code>touch \$\ \$ # 得出是文件名为 $ $    ,删除的时候使用 rm \$\ \$
+touch -- -hello #得出是文件名为 -hello，删除的时候使用 rm -- -hello
+</code></pre><h3 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h3><p>双引号括起来的变量会被展开（取出其中的值），但是单引号引起来的不会展开（不会取出其中的值）。</p>
+<h3 id="括号语法"><a href="#括号语法" class="headerlink" title="括号语法"></a>括号语法</h3><p>执行的语句用括号：</p>
+<pre><code>C@DESKTOP-0JM9OLN MINGW64 /d (master)
+$ pwd        # 当前所在的目录
+/d
+
+C@DESKTOP-0JM9OLN MINGW64 /d (master)    # 执行语句
+$ (cd ..;ls)
+bin/  etc/           LICENSE.txt  ReleaseNotes.html  unins000.exe*
+cmd/  git-bash.exe*  mingw64/     tmp/               unins000.msg
+dev/  git-cmd.exe*   proc/        unins000.dat       usr/
+
+C@DESKTOP-0JM9OLN MINGW64 /d (master)    # 当前所在的目录
+$ pwd
+/d
+</code></pre><p>加上括号是在子进程执行不会传递给主进程本身，不使用括号会吧命令传递给父进程。<br><strong>执行以上语句，实际并不是改变的当前的目录地址，使用括号是shell fork出一个子进程，子进程执行语句：exec(cmd命令)此时主进程切换到后台回收子进程wait，主进程并没有，所以当前目录并没有变。</strong>  </p>
+<h3 id="bash内建命令"><a href="#bash内建命令" class="headerlink" title="bash内建命令"></a>bash内建命令</h3><p>查看内建命令：</p>
+<pre><code>man bash-builtins
+</code></pre><p>如export，if，eval，for，while，shift等。内建虽然不会创建新的进程，但是也会有exit status。<strong>*执行成功会返回0，执行失败返回的是非零。同时结束后也有一个状态码，用特殊变量$?变量读出。</strong></p>
+<pre><code>C@DESKTOP-0JM9OLN MINGW64 /d (master)    # 执行命令
+$ cd                
+
+C@DESKTOP-0JM9OLN MINGW64 ~ (master)    # 执行成功，返回的是0
+$ echo $?
+0
+
+C@DESKTOP-0JM9OLN MINGW64 ~ (master)    # cd一个不存在的文件夹
+$ cd /dsdsds
+bash: cd: /dsdsds: No such file or directory
+
+C@DESKTOP-0JM9OLN MINGW64 ~ (master)     # 返回的是非零的数字
+$ echo $?
+1
+</code></pre><p>注意：</p>
+<ul>
+<li><p>0，或者1，返回是上一个执行命令的值，如果是上一句执行的<code>echo $?``,再执行一遍，</code>echo $?<code>, 则最后得到的就是0，因为你的</code>echo $?<code>`</code>执行是成功的。</p>
+</li>
+<li><p><strong>sh文件第一行加上<code>#! /bin/sh</code>是指定这个解释器取执行这个文件。</strong><br>可以使用<code>source sh_file_name</code>命令或者<code>. sh_file_name</code>。一样的作用。</p>
+</li>
+</ul>
+<h2 id="shell脚本语法"><a href="#shell脚本语法" class="headerlink" title="shell脚本语法"></a>shell脚本语法</h2><h3 id="条件测试-test-或者"><a href="#条件测试-test-或者" class="headerlink" title="条件测试 test 或者 []"></a>条件测试 test 或者 []</h3><p>用于测试一个条件是否成立。结果为真，命令的exit status为0.为假则为1。</p>
+<pre><code>itcast@ubuntu:~$ var=2
+itcast@ubuntu:~$ test $var -gt 1
+itcast@ubuntu:~$ echo $?
+0
+itcast@ubuntu:~$ test $var -gt 3
+itcast@ubuntu:~$ echo $?
+1
+itcast@ubuntu:~$ [ $var -gt 3 ]
+itcast@ubuntu:~$ echo $?
+1
+itcast@ubuntu:~$
+</code></pre><p>注意：<br>使用 [ ]时候要加上空格。 [ $var -gt 3 ]</p>
+<pre><code>[ -d DIR_NAME ]              如果DIR存在并且是一个目录则为真
+[ -f FILE_NAME ]             如果FILE存在且是一个普通文件则为真
+[ -z STRING ]           如果STRING的长度为零则为真
+[ -n STRING ]           如果STRING的长度非零则为真
+[ STRING1 = STRING2 ]   如果两个字符串相同则为真     #常用
+[ STRING1 != STRING2 ]  如果字符串不相同则为真
+[ ARG1 OP ARG2 ]        ARG1和ARG2应该是整数或者取值为整数的变量，OP是-eq（等于）-ne（不等于）-lt（小于）-le（小于等于）-gt（大于）-ge（大于等于）之中的一个
+</code></pre><p>示例：</p>
+<pre><code>[ -d DIR_NAME ]    # 测试是否为目录
+echo $?    用命令检查上一条的命令是否执行成功    
+</code></pre><p>判断2个字符串是否相同，使用[ STRING1 = STRING2 ]，<strong>但是要加上$</strong>:<br>    s1=hello<br>    s2=hello<br>    [ “$s1” = “$s2” ]    # $是取出变量    , 为了保险，在外层加上双引号，如果取出的变量是空字符串。则双引号会吧其作为字符处理<br>    echo $?  # 检查上一句是否执行成功。</p>
+<p><strong>注意：</strong><br>为了安全，取出变量的时候必须加上双引号，防止取出的是空字符串。<br>逻辑运算：</p>
+<pre><code>带与、或、非的测试命令
+
+[ ! EXPR ]          EXPR可以是上表中的任意一种测试条件，!表示逻辑反
+[ EXPR1 -a EXPR2 ]  EXPR1和EXPR2可以是上表中的任意一种测试条件，-a表示逻辑与
+[ EXPR1 -o EXPR2 ]  EXPR1和EXPR2可以是上表中的任意一种测试条件，-o表示逻辑或
+
+
+$ VAR=abc
+$ [ -d Desktop -a $VAR = &apos;abc&apos; ]
+$ echo $?
+0
+</code></pre><h3 id="if-then-elif-else-fi"><a href="#if-then-elif-else-fi" class="headerlink" title="if/then/elif/else/fi"></a>if/then/elif/else/fi</h3><p>   #! /bin/sh</p>
+<pre><code>echo &quot;Is it morning? Please answer yes or no.&quot; # 输出内容
+read YES_OR_NO            # 读取获取到的内容并且赋值给YES_OR_NO，将该字符串存到一个Shell变量中
+if [ &quot;$YES_OR_NO&quot; = &quot;yes&quot; ]; then    # 判断
+  echo &quot;Good morning!&quot;
+elif [ &quot;$YES_OR_NO&quot; = &quot;no&quot; ]; then
+  echo &quot;Good afternoon!&quot;
+else
+  echo &quot;Sorry, $YES_OR_NO not recognized. Enter yes or no.&quot;
+  exit 1 # 将状态码设置为1， 执行echo $?时候的返回值
+fi
+exit 0
+</code></pre><hr>
+
+<pre><code>#! /bin/sh
+
+if [ -f /bin/bash ]
+then echo &quot;/bin/bash is a file&quot;
+else echo &quot;/bin/bash is NOT a file&quot;
+fi
+if :; then echo &quot;always true&quot;; fi
+</code></pre><p><strong>:是一个特殊的命令，称为空命令。这个命令不做任何事情。但是exit status总是真的。</strong></p>
+<p>Shell还提供了&amp;&amp;和||语法：<br>    test “$(whoami)” != ‘root’ &amp;&amp; (echo you are using a non-privileged account; exit 1)</p>
+<p>&amp;&amp;相当于“if…then…”，而||相当于“if not…then…”。&amp;&amp;和||用于连接两个命令，而上面讲的-a和-o仅用于在测试表达式中连接两个测试条件，要注意它们的区别。</p>
+<pre><code>test &quot;$VAR&quot; -gt 1 -a &quot;$VAR&quot; -lt 3
+等价于：
+test &quot;$VAR&quot; -gt 1 &amp;&amp; test &quot;$VAR&quot; -lt 3
+</code></pre><h3 id="case"><a href="#case" class="headerlink" title="case"></a>case</h3><p>  #! /bin/sh<br>case语法示例：</p>
+<pre><code>echo &quot;Is it morning? Please answer yes or no.&quot;
+read YES_OR_NO
+case &quot;$YES_OR_NO&quot; in # in是关键字
+yes|y|Yes|YES)        # |是或， 单括号只有右边的半个，左边的没有
+  echo &quot;Good Morning!&quot;;;    # ;;是结束符，是2个分号
+[nNo]*)                # 匹配括号内的字符，一个或者多个
+  echo &quot;Good Afternoon!&quot;;;
+*)                    # 匹配所有的字符
+  echo &quot;Sorry, $YES_OR_NO not recognized. Enter yes or no.&quot;
+  exit 1;;
+esac        # 这里是将case反过来【和if使用一样】
+exit 0
+</code></pre><p>使用case语句的例子可以在系统服务的脚本目录/etc/init.d中找到。这个目录下的脚本大多具有这种形式（以/etc/init.d/nfs-kernel-server为例）：</p>
+<pre><code> case &quot;$1&quot; in
+    start)
+        ...
+    ;;
+    stop)
+        ...
+    ;;
+    reload | force-reload)
+        ...
+    ;;
+    restart)
+    ...
+    *)
+        log_success_msg &quot;Usage: nfs-kernel-server {start|stop|status|reload|force-reload|restart}&quot;
+        exit 1
+    ;;
+esac
+</code></pre><p>$1是一个特殊变量，在执行脚本时自动取值为第一个命令行参数，也就是start，所以进入start)分支执行相关的命令。同理，命令行参数指定为stop、reload或restart可以进入其它分支执行停止服务、重新加载配置文件或重新启动服务的相关命令。</p>
+<h3 id="for-do-done"><a href="#for-do-done" class="headerlink" title="for/do/done"></a>for/do/done</h3><p>循环语句：</p>
+<pre><code>#! /bin/sh
+
+for FRUIT in apple banana pear; do    # apple banana pear 是列表内容
+  echo &quot;I like $FRUIT&quot; 使用
+done
+</code></pre><p>输出结果是：</p>
+<pre><code>I like apple
+ I like banana
+I like pear
+</code></pre><p>可以写成一行：</p>
+<pre><code>FRUIT是一个循环变量，第一次循环$FRUIT的取值是apple，第二次取值是banana，第三次取值是pear。再比如，要将当前目录下的chap0、chap1、chap2等文件名改为chap0~、chap1~、chap2~等（按惯例，末尾有~字符的文件名表示临时文件），这个命令可以这样写：
+$ for FILENAME in chap?; do mv $FILENAME $FILENAME~; done
+</code></pre><h3 id="while-do-done"><a href="#while-do-done" class="headerlink" title="while/do/done"></a>while/do/done</h3><pre><code>#! /bin/sh
+
+echo &quot;Enter password:&quot;
+read TRY
+while [ &quot;$TRY&quot; != &quot;secret&quot; ]; do
+  echo &quot;Sorry, try again&quot;
+  read TRY
+done
+</code></pre><p>控制运算次数：</p>
+<pre><code>#! /bin/sh
+
+COUNTER=1
+while [ &quot;$COUNTER&quot; -lt 10 ]; do
+  echo &quot;Here we go again&quot;
+  COUNTER=$(($COUNTER+1))
+done
+</code></pre><h3 id="break和continue"><a href="#break和continue" class="headerlink" title="break和continue"></a>break和continue</h3><p>break[n]可以指定跳出几层循环，continue跳过本次循环步，没跳出整个循环。</p>
+<p>break跳出，continue跳过。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/21/bisect排序模块/" rel="next" title="bisect排序模块">
+                <i class="fa fa-chevron-left"></i> bisect排序模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/06/Hadoop笔记/" rel="prev" title="Hadoop笔记">
+                Hadoop笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cooper</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本知识"><span class="nav-number">1.</span> <span class="nav-text">基本知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本语法"><span class="nav-number">2.</span> <span class="nav-text">基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">2.1.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#环境变量"><span class="nav-number">2.1.1.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地变量"><span class="nav-number">2.1.2.</span> <span class="nav-text">本地变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看当前sh类型"><span class="nav-number">2.2.</span> <span class="nav-text">查看当前sh类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件名代换（Globbing）"><span class="nav-number">2.3.</span> <span class="nav-text">文件名代换（Globbing）* ? []</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令代换"><span class="nav-number">2.4.</span> <span class="nav-text">命令代换 $()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算术代换"><span class="nav-number">2.5.</span> <span class="nav-text">算术代换 $(())</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转义字符-反斜杠"><span class="nav-number">2.6.</span> <span class="nav-text">转义字符 \ 反斜杠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引号"><span class="nav-number">2.7.</span> <span class="nav-text">引号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#括号语法"><span class="nav-number">2.8.</span> <span class="nav-text">括号语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bash内建命令"><span class="nav-number">2.9.</span> <span class="nav-text">bash内建命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell脚本语法"><span class="nav-number">3.</span> <span class="nav-text">shell脚本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#条件测试-test-或者"><span class="nav-number">3.1.</span> <span class="nav-text">条件测试 test 或者 []</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if-then-elif-else-fi"><span class="nav-number">3.2.</span> <span class="nav-text">if/then/elif/else/fi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case"><span class="nav-number">3.3.</span> <span class="nav-text">case</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-do-done"><span class="nav-number">3.4.</span> <span class="nav-text">for/do/done</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#while-do-done"><span class="nav-number">3.5.</span> <span class="nav-text">while/do/done</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#break和continue"><span class="nav-number">3.6.</span> <span class="nav-text">break和continue</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cooper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

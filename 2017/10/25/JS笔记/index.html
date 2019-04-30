@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="这篇内容比较乱，关于js。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS笔记">
+<meta property="og:url" content="http://yoursite.com/2017/10/25/JS笔记/index.html">
+<meta property="og:site_name" content="Cooper">
+<meta property="og:description" content="这篇内容比较乱，关于js。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-30T15:50:37.615Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS笔记">
+<meta name="twitter:description" content="这篇内容比较乱，关于js。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2017/10/25/JS笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JS笔记 | Cooper</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>Zeitplan</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/JS笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cooper">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2017-10-25 01:24:50" itemprop="dateCreated datePublished" datetime="2017-10-25T01:24:50+08:00">2017-10-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-04-30 23:50:37" itemprop="dateModified" datetime="2019-04-30T23:50:37+08:00">2019-04-30</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇内容比较乱，关于js。<br><a id="more"></a><br>input是html中的标签，标签下的属性type:  </p>
+<ol>
+<li>button是按钮   </li>
+<li>checkbox是单选项     </li>
+<li>text是文本输入框  </li>
+<li>title是提示文字  </li>
+</ol>
+<p>div是html中的标签，实际就是一个块，添加css样式颜色等，之后就会显示出来。<br>div的属性display，none是不显示，block是显示。   </p>
+<p>id是属性，任何标签都可以添加id属性，div，link等  </p>
+<p>js是添加交互，功能（点击，按钮，翻页等），就是添加动的东西，是修改样式。html写的东西js都能修改。唯独css中的class在js中要写成className。</p>
+<p>js设置css时，要选取元素的属性，使用的是document.getElementById(‘id’).style.属性名<br>需要在样式style之下选择。<br>如果是设置input的value，则是document.getElementById(‘id’).value=’内容’  </p>
+<p>js事件：  就是用户的操作，点击，鼠标的移入或者移出</p>
+<ol>
+<li>on click 点击 </li>
+<li>鼠标的移入 onmouseover</li>
+<li>鼠标的移出 onmouseout</li>
+</ol>
+<p>js中的alert是弹出<br>onclick是js的事件，添加到标签的属性中，可以用来调用函数。  </p>
+<p>js中获取元素的方法： </p>
+<ol>
+<li>document.getElementById(‘id名’)   获取某一个元素  </li>
+<li>document.getElementsByTagName 获取的是一组元素，返回的是数组</li>
+</ol>
+<p>通过style只能取到行间中样式，就是写在标签中的样式。如果样式是写在<style></style>之间的，就取不到。  对于非行间的样式，IE要用currentstyle取出来。chrom 火狐要用getcomputestyle方法。    </p>
+<p>第一个js点击事件：  </p>
+<pre><code>&lt;!DOCUMENT HTML&gt; 
+&lt;HTML&gt;
+&lt;HEAD&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt; hello &lt;/title&gt; 
+
+&lt;/HEAD&gt;
+
+    &lt;body&gt;
+        &lt;input type=&quot;button&quot; name=&quot;&quot; value=&quot;点击&quot; onclick=&quot;alert(&apos;陈志强&apos;)&quot;&gt;
+        &lt;!-- 双引号单引号不能同时出现 ， onclick就是事件，点击就会弹出陈志强--&gt;
+
+    &lt;/body&gt;
+
+&lt;/HTML&gt;
+</code></pre><p>id是作为css的选择符存在，但是在js中有更多的用处。 </p>
+<p>下列代码功能：鼠标移入：显示div1；鼠标移出：隐藏div1。        </p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt; second&lt;/title&gt; 
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
+    # 默认是不显示div1的    
+    #div1 {width: :200px; height: 100px; background: #CCC; border: 1px; display: none; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;input type=&quot;checkbox&quot; name=&quot;&quot; onmouseover=&quot;div1.style.display=&apos;block&apos;;&quot;
+onmouseout=&quot;div1.style.display=&apos;none&apos;&quot;&gt;
+
+
+# div是一个块的存在
+&lt;div id=&quot;div1&quot;&gt;
+    hello world
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>“div1.style.display=’block’：div1的style属性下的display设置为block，即显示出来，隐藏就是none。<br>实际在onmouseover=”div1.style.display=’block’;” 这里是存在问题的：div1是元素，此处的使用是直接拿来用的，并没有获取，这是存在兼容问题的。<br>正确的方式是： “document.getElementById(‘div1’).style.display=’block’;”<br>要先使用document.getElementById(‘元素的名称’) 这样的方式来获取元素。  </p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt; second&lt;/title&gt; 
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
+
+    #div1 {width: :200px; height: 100px; background: #CCC; border: 1px; display: none; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;input type=&quot;checkbox&quot; name=&quot;&quot; onmouseover=&quot;document.getElementById(&apos;div1&apos;).style.display=&apos;block&apos;;&quot;
+onmouseout=&quot;document.getElementById(&apos;div1&apos;).style.display=&apos;none&apos;&quot;&gt;
+
+&lt;div id=&quot;div1&quot;&gt;
+    hello world
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;  
+</code></pre><p>同样要注意双引号和单引号的问题。</p>
+<h3 id="js函数"><a href="#js函数" class="headerlink" title="js函数"></a>js函数</h3><p>js函数和css中的class是相似的。css中的class这写好之后，在需要的地方拿来直接用。<br>css的样式写在style之间，js的函数写在script之间。  当css样式写在css文件的时候，要使用link链接进来。link标签是不写在style之间的。<br>js中定义变量要用 var 关键字。   变量就是给一个东西起一个别名，好处就是不再写更多的重复的代码。<br>以下是js中定义函数， 注意其中的格式：    </p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+
+    function togreen() 
+    {        
+        // 定义变量的关键字是 var 
+        var odiv = document.getElementById(&apos;div1&apos;)
+        odiv.style.width=&apos;500px&apos;;
+        odiv.style.height=&apos;2000px&apos;;
+        odiv.style.background = &apos;green&apos;;
+    }
+
+    function tored() 
+    {  
+        // 定义变量的关键字是 var 
+        var odiv = document.getElementById(&apos;div1&apos;)
+        odiv.style.width=&apos;200px&apos;;
+        odiv.style.height=&apos;100px&apos;;
+        odiv.style.background = &apos;red&apos;;
+    }
+&lt;/script&gt;  
+</code></pre><p>函数的格式：  </p>
+<pre><code>function 函数名(参数可以为空)
+{
+......
+.....
+.....    
+} 
+</code></pre><p>函数名字是随意定义。函数定义之后就是调用，函数名()即可。<br>函数在body中调用要双引号引起来，在script中是不需要的。<br>在js中，不论要操作什么，都要先选出来才能操作，就像和某人说一件事情要先把他叫过来，js是同样的。选择的方法就是使用document.getElmentById或者其他的方法。<br>无论是什么标签，都是可以加id属性的。  包括link。<br>任何标签下的属性都是可以被修改的，包括link中的href。<br>html中怎么写，js就是怎么写的，只是使用的方法不同。唯一例外的是，html中的class在js中要写成className。  </p>
+<h3 id="换肤例子"><a href="#换肤例子" class="headerlink" title="换肤例子"></a>换肤例子</h3><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;link id=&quot;div1&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css1.css&quot;&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
+
+    &lt;/style&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        function skin1(){
+            odiv = document.getElementById(&apos;div1&apos;);
+            odiv.href = &quot;css2.css&quot;
+        }
+
+        function skin2() {
+            odiv = document.getElementById(&quot;div1&quot;);
+            odiv.href = &quot;css1.css&quot;
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;input type=&quot;button&quot; name=&quot;&quot; value=&quot;1&quot; onclick=&quot;skin1()&quot;&gt;
+&lt;input type=&quot;button&quot; name=&quot;&quot; value=&quot;2&quot; onclick=&quot;skin2()&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>css文件：  </p>
+<pre><code># css1文件
+@charset &quot;utf-8&quot;
+
+body {
+    background: :black;
+} 
+
+input {
+    width: 200px;
+    height: 1000px;
+    background: yellow;
+}
+
+
+# css2文件 
+@charset &quot;utf-8&quot;
+
+body {
+    background: red;
+} 
+
+input {
+    width: 3300px;
+    height: 20px;
+    background: blue;
+}
+</code></pre><hr>  
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        function addtext(){
+            var ch=document.getElementById(&apos;txt1&apos;);
+            ch.value = &apos;dsdsd   s&apos;;
+            ch.title = &apos;dsdsdsdefwgerggerg &apos;
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;input id=&quot;txt1&quot; type=&quot;text&quot; name=&quot;&quot;&gt;
+&lt;input type=&quot;button&quot; name=&quot;&quot; value=&quot;change&quot; onclick=&quot;addtext()&quot;&gt;
+&lt;/body&gt;
+&lt;/html&gt;  
+</code></pre><h3 id="if-条件语句"><a href="#if-条件语句" class="headerlink" title="if 条件语句"></a>if 条件语句</h3><pre><code>if(条件)
+｛
+条件成立，执行语句1
+｝
+else
+｛
+条件不成立，执行语句2
+｝  
+</code></pre><h4 id="js函数传参"><a href="#js函数传参" class="headerlink" title="js函数传参"></a>js函数传参</h4><p>function 函数名(参数)<br>｛<br>    语句<br>｝<br>函数名(实参)<br>参数的位置就是占位符，只是顶替而已，就是python的形参，调用函数时传递的才是实参。   </p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    &lt;/style&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        function setcolor(color)
+        {
+                var odiv = document.getElementById(&apos;div1&apos;)
+                odiv.style.background = color
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;input  type=&quot;button&quot; name=&quot;&quot; value=&quot;blue&quot; onclick=&quot;setcolor(&apos;blue&apos;)&quot;&gt;
+&lt;input  type=&quot;button&quot; name=&quot;&quot; value=&quot;green&quot; onclick=&quot;setcolor(&apos;green&apos;)&quot;&gt;
+&lt;input type=&quot;button&quot; name=&quot;&quot; value=&quot;black&quot; onclick=&quot;setcolor(&apos;black&apos;)&quot;&gt;
+&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>注意：<br>onclick=”setcolor(‘blue’)” 里面的是参数，不是变量。  </p>
+<p>获取元素的方式:</p>
+<ol>
+<li><p>使用点链接，一般使用这样的方式： </p>
+<p> var odiv = document.getElementById(‘div1’)<br> odiv.style.background = color  </p>
+</li>
+<li><p>使用中括号，当函数传参的时候，使用这个方法，具体的名字可以随意的指定</p>
+<pre><code>function setstyle(name， value)
+{
+    var odiv = document.getElementById(&apos;div1&apos;)
+    # 如果是input下的value
+    odiv[name] = value  
+</code></pre></li>
+</ol>
+<pre><code>    # 如果是style下：
+    odiv.style[name] = value
+}
+
+# 调用
+setstyle(name, value) 
+</code></pre><p>通过style加的样式，都是加在行间的。<br>样式优先级：<br>*通配符&lt;标签&lt;id&lt;行间<br>因为优先级原因，所以最好是对于同一个元素要从头至尾的要么操作style要么操作class  </p>
+<h3 id="提取行间事件"><a href="#提取行间事件" class="headerlink" title="提取行间事件"></a>提取行间事件</h3><p>写在行间的事件，比如onclick，这就是行间事件。写行间事件有隐患，也狠麻烦。  </p>
+<h4 id="提取事件"><a href="#提取事件" class="headerlink" title="提取事件"></a>提取事件</h4><h5 id="用js为元素添加事件"><a href="#用js为元素添加事件" class="headerlink" title="用js为元素添加事件"></a>用js为元素添加事件</h5><p>就是吧onclick事件放置在js的script中，obtn.onclick=函数名()  </p>
+<p>js函数也可以不写名字，匿名函数，直接调用即可。</p>
+<pre><code>obtn.onclick= function ()
+{
+    .....
+    ....
+}  
+</code></pre><p>大部分js函数是没名字的。  </p>
+<p>使用window.onload= function(){….}，加载所有的代码之后执行，这是在使用提取行间事件时必须的。<br>前端要求，行为（js），样式（css）， 结构（html）三者分离。  就是说： </p>
+<ol>
+<li>别加行间样式，使用style或者css问价完成css样式  </li>
+<li>别加行间事件，使用script，用函数完成事件调用。  </li>
+</ol>
+<p>提取行间事件就是为了三者分离。  </p>
+<h3 id="全选，不选和反选案例"><a href="#全选，不选和反选案例" class="headerlink" title="全选，不选和反选案例"></a>全选，不选和反选案例</h3><pre><code>        &lt;!DOCTYPE html&gt;
+        &lt;html&gt;
+        &lt;head&gt;
+            &lt;title&gt;&lt;/title&gt;
+
+            &lt;script type=&quot;text/javascript&quot;&gt;
+            window.onload = function() {
+                    var obt1 = document.getElementById(&apos;bt1&apos;);
+                    var obt2 = document.getElementById(&apos;none&apos;);
+                    var obt3 = document.getElementById(&apos;fan&apos;);
+
+                    // 获取一个标签下另一个标签
+                    var oinput = document.getElementById(&apos;div1&apos;);
+                    var ach = oinput.getElementsByTagName(&apos;input&apos;);
+
+                    obt1.onclick = function(){
+
+                        for(var i=0;i&lt;ach.length;i++){
+                            ach[i].checked = true;
+                        }
+                    };
+
+                    obt2.onclick = function(){
+                        for(var i=0;i&lt;ach.length;i++){
+                            ach[i].checked = false;
+                        }
+                    };
+
+                    obt3.onclick = function(){
+
+                        for(var i=0;i&lt;ach.length;i++){
+
+                            if(ach[i].checked == true){
+                                ach[i].checked = false
+                            }
+                            else{
+                                ach[i].checked = true
+                            }    
+                        }
+                    };
+
+                };
+
+            &lt;/script&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+
+
+        &lt;input id=&apos;bt1&apos; type=&quot;button&quot; name=&quot;&quot; value=&quot;全选&quot;&gt;&lt;br&gt;
+        &lt;input type=&quot;button&quot; name=&quot;&quot; value=&quot;不选&quot; id=&apos;none&apos;&gt;&lt;br&gt;
+        &lt;input type=&quot;button&quot; name=&quot;&quot; value=&quot;反选&quot; id=&apos;fan&apos;&gt;&lt;br&gt;
+
+        &lt;div id=&apos;div1&apos;&gt;
+        &lt;input type=&quot;checkbox&quot; name=&quot;&quot;&gt; &lt;br&gt;
+        &lt;input type=&quot;checkbox&quot; name=&quot;&quot;&gt;&lt;br&gt;
+        &lt;input type=&quot;checkbox&quot; name=&quot;&quot;&gt;&lt;br&gt;
+        &lt;input type=&quot;checkbox&quot; name=&quot;&quot;&gt;&lt;br&gt;
+        &lt;input type=&quot;checkbox&quot; name=&quot;&quot;&gt;&lt;br&gt;
+        &lt;input type=&quot;checkbox&quot; name=&quot;&quot;&gt;&lt;br&gt;
+        &lt;input type=&quot;checkbox&quot; name=&quot;&quot;&gt;&lt;br&gt;
+        &lt;input type=&quot;checkbox&quot; name=&quot;&quot;&gt;&lt;br&gt;
+        &lt;/div&gt;
+
+        &lt;/body&gt;
+        &lt;/html&gt;  
+
+
+### 选项卡 
+
+this：指的是当前事件发生的元素。在对元素循环执行的时候，使用this指的就是当前操作的对象。
+
+通过html添加的自定义的属性，浏览器是不认的。但是通过js添加的属性是可以的。  
+
+代码：  
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+
+    &lt;style type=&quot;text/css&quot;&gt;
+        /*.active active是类名*/
+         #div1 .active {background: yellow}
+         #div1 div {width: 200px; height: 200px; background: red; border: 2px;  display: none; } 
+    &lt;/style&gt; 
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        window.onload = function(){
+            var odiv = document.getElementById(&apos;div1&apos;)
+            var oinput = odiv.getElementsByTagName(&apos;input&apos;)
+            var odivv = odiv.getElementsByTagName(&apos;div&apos;)
+
+
+            // 这部分是对按钮的操作，按下某一个按钮，显示黄色，其他的按钮没有黄色
+            for(var i=0;i&lt;oinput.length;i++){
+
+                // 这句是添加属性index，值为i
+                // 这里是通过js添加自定义属性，通过html添加自定义属性浏览器是不认的
+                oinput[i].index = i;
+
+                oinput[i].onclick = function(){
+                    for(var i=0;i&lt;oinput.length;i++){
+                        oinput[i].className = &apos;&apos;;
+                        odivv[i].style.display = &apos;none&apos;;
+                    }
+                // this指向的是当前操作的元素
+                // 因为是类，html的class在这里要用classname
+                this.className = &apos;active&apos;;
+
+                // 上面已经添加index属性，这里取出来index的值，以此确定到底是哪个div要操作
+                odivv[this.index].style.display = &apos;block&apos;;
+                }
+            };
+        }
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&apos;div1&apos;&gt;
+        &lt;!-- 添加类属性 --&gt;
+        &lt;input class=&apos;active&apos; type=&quot;button&quot; name=&quot;&quot; value=&quot;教育&quot;&gt;
+        &lt;input type=&quot;button&quot; name=&quot;&quot; value=&quot;培训&quot;&gt;
+        &lt;input type=&quot;button&quot; name=&quot;&quot; value=&quot;出国&quot;&gt;
+        &lt;input type=&quot;button&quot; name=&quot;&quot; value=&quot;写作&quot;&gt;
+        &lt;div style=&quot;display: block;&quot;&gt;1111&lt;/div&gt;
+        &lt;div&gt;222&lt;/div&gt;
+        &lt;div&gt;3333&lt;/div&gt;
+        &lt;div&gt;4444&lt;/div&gt;
+
+    &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;   
+</code></pre><h4 id="简易日历"><a href="#简易日历" class="headerlink" title="简易日历"></a>简易日历</h4><p>innerhtml：js最有用的东西。直接修改某个标签下面的内容，而不是仅仅修改某一个标签的属性值了。<br>从文本框里面拿文字只要使用input标签的属性value属性值就好。   </p>
+<p>innerHTML就是吧某个内容放置在odiv标签下去，作为内容。<br>innerHTML还可以取出某个标签之间的内容，比如<div></div>之间的而不是div标签下的属性。<br>还可以通过innerHTML来往html之间添加html元素，什么内容都是可以往里面放的。</p>
+<p>value是给input用的，是属性；innerhtml是给span，div等标签用的。<br>数组<br>字符串优先级  </p>
+<h4 id="js基础"><a href="#js基础" class="headerlink" title="js基础"></a>js基础</h4><p>ecmascript：角色是解释器，核心部分<br>dom：操作html的能力   关键字 document.getElementById等方法。<br>bom： 浏览器操作模型 关键字 window.onload， 或者alert弹出等。  </p>
+<p>查看类型： typeof a<br>类型转换： parseint方法将字符串转换为数字，如果不是数字返回的是NaN，如果其中包含了数字了，则会从左到右的找到非数字的地方返回前面的数字。但是只能转换整数，不能处理小数，处理小数要用，parseFloat 。parseint是很常用的东西。</p>
+<p>注意：js中如果2个都是NaN，NaN和NaN是不相等的。 所以不能使用NaN==NaN这样的方式判断，要使用isNaN方法判断。如果是的，返回true，不是的返回false。<br>以上是显示转换，也是指定转换类型的强制转换。  </p>
+<p>隐士转换：<br>== ：自动的先转换类型，再比较<br>=== ： 不自动的转换类型比较  </p>
+<p>#####变量作用域  </p>
+<p>局部变量：<br>闭包:函数包含函数  父函数 子函数<br>js中命名要使用命名前缀 函数取名的时候不需要前缀。<br>首字母大写。    </p>
+<p>取模是 % ：就是取余  隔行变色<br>js中还有else if语句  python中的是elif  作用相同。<br> 选择条件： switch  </p>
+<p>重点：  </p>
+<p>三目运算符：是if的简写，写法：条件?条件成立执行的语句:条件不成立的语句;<br>简单的语句用三目很好，复杂就不好了。   </p>
+<p>break： 停止循环<br>contuin：跳出本次的循环  </p>
+<p>真：true 非空，非零（包含负数）非空字符串<br>假： false， 零 空字符串 ，null 空对象  定义的变量但是未赋值的。  </p>
+<p>循环：<br>数组：使用for（var i=0;i&lt;odiv.length;i++）这样的方式最好<br>json：使用for(var i in json) 这样的方式最好  </p>
+<p>函数返回值<br>arguments：在函数内部使用，接受的是不定长参数，数组形式。  </p>
+<pre><code>function sum(){
+argument代表的就是传递进来的参数。    
+var result = 0
+for(var i=0;i&lt;arguments.length;i++){
+    result+=arguments[i]
+}
+
+}
+alert(sum(1,2,34,5,6,7,5,3))  
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/21/Redis基础/" rel="next" title="Redis基础">
+                <i class="fa fa-chevron-left"></i> Redis基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cooper</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#js函数"><span class="nav-number">1.</span> <span class="nav-text">js函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#换肤例子"><span class="nav-number">2.</span> <span class="nav-text">换肤例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if-条件语句"><span class="nav-number">3.</span> <span class="nav-text">if 条件语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#js函数传参"><span class="nav-number">3.1.</span> <span class="nav-text">js函数传参</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提取行间事件"><span class="nav-number">4.</span> <span class="nav-text">提取行间事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提取事件"><span class="nav-number">4.1.</span> <span class="nav-text">提取事件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#用js为元素添加事件"><span class="nav-number">4.1.1.</span> <span class="nav-text">用js为元素添加事件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全选，不选和反选案例"><span class="nav-number">5.</span> <span class="nav-text">全选，不选和反选案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简易日历"><span class="nav-number">5.1.</span> <span class="nav-text">简易日历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js基础"><span class="nav-number">5.2.</span> <span class="nav-text">js基础</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cooper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本篇内容是关于数据结构以及算法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法(Python)">
+<meta property="og:url" content="http://yoursite.com/2017/06/19/数据结构与算法-Python/index.html">
+<meta property="og:site_name" content="Cooper">
+<meta property="og:description" content="本篇内容是关于数据结构以及算法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/19/594766783c273.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/19/5947690bcf278.bmp">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/19/5947680a029c8.gif">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/19/59476b98bad38.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/19/594763ef60ad3.jpg">
+<meta property="og:updated_time" content="2017-06-22T00:44:46.698Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构与算法(Python)">
+<meta name="twitter:description" content="本篇内容是关于数据结构以及算法。">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/06/19/594766783c273.jpg">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2017/06/19/数据结构与算法-Python/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>数据结构与算法(Python) | Cooper</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>Zeitplan</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/数据结构与算法-Python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cooper">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构与算法(Python)
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2017-06-19 10:47:58" itemprop="dateCreated datePublished" datetime="2017-06-19T10:47:58+08:00">2017-06-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2017-06-22 08:44:46" itemprop="dateModified" datetime="2017-06-22T08:44:46+08:00">2017-06-22</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇内容是关于数据结构以及算法。</p>
+<a id="more"></a>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>数据结构和算法是什么？是兵法！用于提升程序运行效率，提升性能有神效！并且可以优化。</p>
+<h2 id="排序与搜索"><a href="#排序与搜索" class="headerlink" title="排序与搜索"></a>排序与搜索</h2><h3 id="冒泡排序-Bubble-Sort"><a href="#冒泡排序-Bubble-Sort" class="headerlink" title="冒泡排序 Bubble Sort"></a>冒泡排序 Bubble Sort</h3><p>交换过程：<br><img src="https://ooo.0o0.ooo/2017/06/19/594766783c273.jpg" alt><br>假如按照升序，第一次冒泡的时候，从第一个数字开始，和第二个对比，如果是大于，交换位置，否则不变，继续第二个和第三个的对比，直到第n-1个和第n个，第一次冒泡结束，一共对比了n-1次，最右边的为最大的数字（如果是降序则为最小）。排序结束后，一共会有n-1次冒泡。如图：<br><img src="https://ooo.0o0.ooo/2017/06/19/5947690bcf278.bmp" alt><br>冒泡演示：<br><img src="https://ooo.0o0.ooo/2017/06/19/5947680a029c8.gif" alt></p>
+<pre><code>def bubbleSort(alist):
+    for passnum in range(len(alist)-1,0,-1):
+        for i in range(passnum):
+            if alist[i]&gt;alist[i+1]:
+                temp = alist[i]
+                alist[i] = alist[i+1]
+                alist[i+1] = temp
+
+alist = [54,26,93,17,77,31,44,55,20]
+bubbleSort(alist)
+print(alist)
+</code></pre><h3 id="选择排序-Selection-Sort"><a href="#选择排序-Selection-Sort" class="headerlink" title="选择排序 Selection Sort"></a>选择排序 Selection Sort</h3><p>选择排序改进了冒泡排序，每次通过列表只做一次的交换。一次选择排序寻找一个最大值，并将其放置在正确的位置。<br><img src="https://ooo.0o0.ooo/2017/06/19/59476b98bad38.jpg" alt></p>
+<pre><code>def selectionSort(alist):
+        for index in range(len(alist)-1,0,-1):
+            positionMax = 0
+        for location in range(1,index+1):
+            if alist[location]&gt;alist[positionMax]:
+            positionMax = location
+        temp = alist[index]
+        alist[index] = alist[positionMax]
+        alist[positionMax] = temp
+
+alist = [54,226,93,17,77,31,44,55,20]
+selectionSort(alist)
+print(alist)
+</code></pre><h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h3><p>遍历： 指对树中的所有的节点进行访问，依次对每一个节点访问一次且仅一次，称为遍历。分为深度优先和广度优先2种：<br>    深度优先：一般用递归。<br>    广度优先：一边用队列。<br>能用递归实现的算法也能用堆栈实现。</p>
+<h3 id="深度遍历"><a href="#深度遍历" class="headerlink" title="深度遍历"></a>深度遍历</h3><p>沿着树的深度遍历树的节点，尽可能的搜索树的分支。<br>分为3种遍历方式：先序遍历，中序遍历，后序遍历。不同之处在于访问节点的顺序不同。</p>
+<ul>
+<li><p>先序遍历<br>这种方式先访问的是根节点，然后递归使用先序遍历访问左子树，再递归使用先序遍历访问右子树。<br>即：根节点–&gt;左子树–&gt;右子树  </p>
+<blockquote>
+<p>def front(self, root):</p>
+<pre><code>&quot;&quot;&quot;递归实现先序遍历&quot;&quot;&quot;
+if root == None:
+  return
+print root.elem
+self.front(root.lchild)
+self.front(root.rchild)
+</code></pre><p>访问时，根节点开始，因为是深度遍历，向下只找寻每一层的左子树节点，一层层往下，直到最后一层的左子树节点；下一个访问最后一层的同一根节点的右子树节点；再向上找寻有分支的根节点并向下找寻，依旧按照先左后右的顺序。<br>请看最下方的示例。</p>
+</blockquote>
+</li>
+<li><p>中序遍历<br>这种方式，递归使用中序遍历访问左子树，然后，根节点，最后递归使用中序遍历访问右子树。<br>即：左子树–&gt;根节点–&gt;右子树  </p>
+<blockquote>
+<p>def middle(self, root):</p>
+<pre><code>&quot;&quot;&quot;递归实现中序遍历&quot;&quot;&quot;
+if root == None:
+  return
+self.middle(root.lchild)
+print root.elem
+self.middle(root.rchild)
+</code></pre><p>访问时，从二叉树的最左边的节点开始，再这一左子树节点的根节点；再这一根节点下的右子树节点；当前根节点遍历完后，再向上找寻根节点，上一层根节点下如果存在任何一个左子树节点（无论是在哪一层上），都先从最底层的左子树节点开始，按照先前的顺序开始。</p>
+</blockquote>
+</li>
+<li><p>后序遍历<br>这种方式，先是递归使用后序变量访问左子树，再右子树，最后根节点。<br>即:左子树–&gt;右子树–&gt;根节点</p>
+<blockquote>
+<p>def later(self, root):<br>  “””递归实现后续遍历”””</p>
+<pre><code>if root == None:
+    return
+self.later(root.lchild)
+self.later(root.rchild)
+print root.elem
+</code></pre></blockquote>
+</li>
+</ul>
+<h3 id="广度遍历"><a href="#广度遍历" class="headerlink" title="广度遍历"></a>广度遍历</h3><p>使用队列实现，从根节点开始，从上到下从左到右依次遍历真个树的节点。<br>广度遍历可以查出每一层的宽度以及二叉树的最大宽度。（某次面试就被考到这个问题）<br>    &gt;def level_queue(self, root):<br>        “””利用队列实现树的层次遍历”””<br>        if root == None:<br>            return<br>        myQueue = []<br>        node = root<br>        myQueue.append(node)<br>        while myQueue:<br>            node = myQueue.pop(0)<br>            print node.elem,<br>            if node.lchild != None:<br>                myQueue.append(node.lchild)<br>            if node.rchild != None:<br>                myQueue.append(node.rchild)</p>
+<p>示例：<br><img src="https://ooo.0o0.ooo/2017/06/19/594763ef60ad3.jpg" alt></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/19/Python知识/" rel="next" title="Python知识">
+                <i class="fa fa-chevron-left"></i> Python知识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/19/Mysql知识汇总/" rel="prev" title="Mysql知识汇总">
+                Mysql知识汇总 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cooper</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#排序与搜索"><span class="nav-number">1.1.</span> <span class="nav-text">排序与搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#冒泡排序-Bubble-Sort"><span class="nav-number">1.1.1.</span> <span class="nav-text">冒泡排序 Bubble Sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择排序-Selection-Sort"><span class="nav-number">1.1.2.</span> <span class="nav-text">选择排序 Selection Sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入排序"><span class="nav-number">1.1.3.</span> <span class="nav-text">插入排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速排序"><span class="nav-number">1.1.4.</span> <span class="nav-text">快速排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树"><span class="nav-number">1.2.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树遍历"><span class="nav-number">1.2.1.</span> <span class="nav-text">二叉树遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度遍历"><span class="nav-number">1.2.2.</span> <span class="nav-text">深度遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广度遍历"><span class="nav-number">1.2.3.</span> <span class="nav-text">广度遍历</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cooper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

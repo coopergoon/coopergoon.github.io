@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Hadoop自学笔记通过Youtube视频自学点Hadoop，算是给自己技术储备。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop笔记">
+<meta property="og:url" content="http://yoursite.com/2017/07/06/Hadoop笔记/index.html">
+<meta property="og:site_name" content="Cooper">
+<meta property="og:description" content="Hadoop自学笔记通过Youtube视频自学点Hadoop，算是给自己技术储备。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-10T14:43:27.998Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop笔记">
+<meta name="twitter:description" content="Hadoop自学笔记通过Youtube视频自学点Hadoop，算是给自己技术储备。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2017/07/06/Hadoop笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Hadoop笔记 | Cooper</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>Zeitplan</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/06/Hadoop笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cooper">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hadoop笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2017-07-06 21:11:15" itemprop="dateCreated datePublished" datetime="2017-07-06T21:11:15+08:00">2017-07-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2017-07-10 22:43:27" itemprop="dateModified" datetime="2017-07-10T22:43:27+08:00">2017-07-10</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Hadoop自学笔记"><a href="#Hadoop自学笔记" class="headerlink" title="Hadoop自学笔记"></a>Hadoop自学笔记</h2><p>通过Youtube视频自学点Hadoop，算是给自己技术储备。</p>
+<a id="more"></a>
+<h3 id="Hadoop介绍"><a href="#Hadoop介绍" class="headerlink" title="Hadoop介绍"></a>Hadoop介绍</h3><p>hadoop是批处理形式，storm和spark是刘处理形式。<br>Hadoop来源：是Google集群系统的开源实现</p>
+<pre><code>- GFS(google file system)，MapReduce，BigTable 3 篇论文实现的。
+-  Hadoop注意由HDFS(Hadoop Distriuted File system Hadoop分布式文件系统)，Mapreduce和Hbase组成。
+</code></pre><p>设计核心是HDFS和MapReduce，HDFS是来源于GFS。<br>HDFS是解决大数据存储问题的。理论说存储的数据量是没有限制的，PB级以上的。同时解决数据的稳定问题，不会丢失数据。<br><br>结构化的数据可以存储在关系型数据库中，但是对于譬如百度大型的公司，数据都是PB级的，存储的是非结构化的数据。Hadoop可以存储结构化或者非结构化的数据。</p>
+
+<p>传统的关系型数据库的特点是单台的配置很高。如果数据量足够大的时候再增加另外一台数据库机器的时候，扩展很会很麻烦（同步问题方案，读写分离问题等）。使用Hadoop集群的价钱和单台的数据库机器价钱不会差很多，但是在整体的性能上Hadoop却比数据库服务更好。</p>
+
+<p>上图中，红色的是必学的，属于Hadoop家族的成员。黑色的文字不属于Hadoop中的内容。Pig在目前使用的不多了。<br>使用的Hadoop的公司，百度阿里雅虎英特尔facebook亚马逊等。</p>
+<h3 id="Hadoop安装"><a href="#Hadoop安装" class="headerlink" title="Hadoop安装"></a>Hadoop安装</h3><p>hadoop的版本是多条线并行的开发的。<br>rbm是已经编译的，tar包是包含源码文档，同样已经编译的。</p>
+<h3 id="HDFS-介绍"><a href="#HDFS-介绍" class="headerlink" title="HDFS 介绍"></a>HDFS 介绍</h3><p>HDFS是做存储用的。</p>
+<p>HDFS优点：<br><br>可构建在廉价的机器上，甚至二手的台式机都可以使用。因为容错性很好，所以可以使用廉价的机器。就算是台式机挂了，硬盘坏了，也都不会影响数据的存储使用。<br>HDFS缺点：<br></p>
+<ul>
+<li>不适合要求毫秒级内反应的情景下。</li>
+<li>小文件或是大量的小文件不适合使用。小文件的数量多，导致元数据增加，元数据是加载到内存中，会大大的占用内存。所以就需对小文件进行压缩机制。将多个小文件压缩为一个文件。</li>
+<li>不适合修改。例如网盘的使用。
+</li>
+</ul>
+<p>可靠性高： hdfs会将数据或者文件进行复制，存储多个副本到不同的机器中。 同时也加快了读取时的速度。<br><br>HDFS有三个节点：Name Node, DataNodes<br>元数据是除文件之外的数据，例如，文件名，文件大小等就是元数据。<br>文件的多少会影响元数据的大小。<br>NameNode节点中的元数据保存在内存中，也会在磁盘中保存一份。只是启动的时候会加载到内存中。工作中都是内存中读取数据的。<br>DataNodes存在磁盘中，所以DataNodes会大一些。</p>
+
+<p>数据节点可以做数据的复制。</p>
+<h3 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h3>
+<p><code>上图架构是有问题的</code><br>Secondary NameNode是HDFS的第三个节点。【NameNode， DataNode】<br>实际HDFS Client的请求是直接发送到data node上。data node上的相同颜色表示同样的数据副本。数据副本会存储在多个机器上作为备份。<br>数据都是存在data node下的磁盘中的。副本越多丢失数据的可能性越小。这样的就不会丢失数据。<br>data node 中的矩形，就是存储数据的block。<br></p>
+<ul>
+<li>block简称是夸，固定大小是64兆。可修改。一个夸只能存储一个文件的数据，即使文件没有达到64兆。</li>
+<li>夸只是逻辑结构，并不占用磁盘空间。并不是吧磁盘分隔为n个64兆空间。如果一个文件超过64兆，则存储在多个夸中。并且每个夸存储在不同的节点上，防止文件的丢失。默认每一个夸有三个副本。</li>
+<li>副本数可修改。副本的数量越多，磁盘利用率越低，因为存储的都是相同是数据。</li>
+<li>创建好的夸，大小是不能修改的。</li>
+<li>如果一个节点挂了，副本数会就小于指定的数量，当副本数小于你指定的副本的数时候，会自动的在空闲的节点上复制增加新的副本。这样依然保持足够的副本数防止数据丢失。<br>一个典型的部署场景是集群中一台计算机运行一个Namenode实例，其他机器分别运行一个datanode实例。当然也可以一个机器运行多个datanode实例。集群中单一的namenode的设计大大简化了系统的架构。<br>NameNode是所有的元数据的管理者，用户数据永远不经过NameNode。
+
+<h3 id="NameNode"><a href="#NameNode" class="headerlink" title="NameNode"></a>NameNode</h3>
+block保存在哪个datanode的信息，只会加载到内存中，不会存储到磁盘中，所以每次重启都会丢失一次，但是开机后，datanode又会上报一次，依旧正常。<br>元数据会在内存中加载，同时磁盘中也会保存一份元数据（block保存在哪个datanode的信息不会保存到磁盘中）。如果元数据操作了，首先在edits中记录增删等操作，每隔段时间，将fsimages和操作日志合并，合并时候在namenode中进行元数据的增删等操作。<br>Datanode中只存储的是数据而已，文件名字都会存储，文件名字等元数据只存在namenode中。<h3 id="SecondaryNameNode"><a href="#SecondaryNameNode" class="headerlink" title="SecondaryNameNode"></a>SecondaryNameNode</h3>可以做一部分的元数据的备份，不是实时备份（不是热备，能找的是部分的存储数据。）。但并不是主要的作为备份使用。主要是帮助NN合并edits log。合并的时候会涉及大量的IO操作。namenode主要是接受客户端的请求，如果合并的io操作也是namenode完成，就会占用大量的cou资源。所以，将合并的部分交给secondarynamnenode完成。合并之后，得带新的fsimage，再传送给namenode，替换原来的fsimage。
+</li>
+</ul>
+<p>合并过程：<br></p>
+<ol>
+<li>到指定的间隔时间后，将fsimage和edit文件从namenode跨网络拷贝到secondarynamenode上。</li>
+<li>同时，因为是将namenode上的edit文件拷贝了过来，但是namenode上还是会进行用户的读写操作。所以namenode上又会产生一个edits文件记录。新的edits记录的是在拷贝期间新的用户操作的日志。</li>
+<li>在secondarynamenode上，会吧拷贝过来的edits文件和fsimage文件合并为一个新的fsimages文件。</li>
+<li>secondarynamenode会吧合并之后的fsimages文件推送给namenode，namenode将新的fsimages替换。</li>
+<li>再到间隔时间后，重复上述的步骤。</li>
+</ol>
+<p>同时产生一个fsimage，传送给namenode替换原来的fsimag，同是namenode上会产生一个新的edit日志文件，记录用户的请求操作。</p>
+<h3 id="DataNode"><a href="#DataNode" class="headerlink" title="DataNode"></a>DataNode</h3>
+<p>系统启动的时候，DataNode会向namenode汇报block的位置信息。<br>DataNode会定时向namenode发送心跳数据。</p>
+<h3 id="Block副本放置策略"><a href="#Block副本放置策略" class="headerlink" title="Block副本放置策略"></a>Block副本放置策略</h3>
+<p>解释：</p>
+<ol>
+<li>Rack指的是机架。 </li>
+<li>第二个副本选择的时候，会在不同的机架上，因为同一个机架的电源是相同的。 </li>
+<li>放置第三个副本的时候，为了保持速度，所以选择了放置在和第二个副本相同的地方。同一个机架会速度更快。 </li>
+<li>因为配置文件中会配置好服务器编号和机架对应的编号，所以会自动的将第二个副本放置对应的位置。</li>
+</ol>
+<h3 id="HDFS读写的流程"><a href="#HDFS读写的流程" class="headerlink" title="HDFS读写的流程"></a>HDFS读写的流程</h3><h4 id="HDFS读的流程"><a href="#HDFS读的流程" class="headerlink" title="HDFS读的流程"></a>HDFS读的流程</h4>
+<ol>
+<li>客户端发送请求，使用open函数，请求到达distrbuted filesystemapi（蓝色的是api）。调用api的open 方法，发送请求到nameode。获得block中的文件位置信息。</li>
+<li>将信息返回到客户端，再去经过新的一个api，fsdata inputstream【流】，通过这个流，<code>并发</code>去读各个block的信息。</li>
+<li>因为存在多个副本，其实只要找到一个副本的位置即可。</li>
+<li>读取完毕后关闭这个流。</li>
+<li>在客户端统一的形成文件。因为datanode中的只是，被分隔的文件而已。</li>
+<li>注意：一般只读取小的文件，因为，文件在客户端形成，吵到的文件会赵勇很大的硬盘空间。</li>
+</ol>
+<h4 id="HDFS写的流程"><a href="#HDFS写的流程" class="headerlink" title="HDFS写的流程"></a>HDFS写的流程</h4>
+<ol>
+<li>通过create方法，使用distributed filesystem，吧文件的名字大小，文件的拥有者等信息传递。首先请求namenode，收到传递过来的信息。</li>
+<li>在namenode上会返回，吧文件切割多少个block，放置在哪里。因为datanode是会汇报所有的心跳数据。namenode是清楚所有的文件位置的。</li>
+<li>返回给客户端的信息，经由FSData Outputstrem api<br>吧数写到其中的一个datanode上。</li>
+<li>完成第一个副本后，后面的副本是由datanode开启一个线程，按照副本放置的规则放置在其他的datanode上。完成第二个副本的复制。而不是在经由客户端了。</li>
+<li>完成所有的后返回个i客户端一个信息。</li>
+<li>再汇报给namenode。</li>
+<li>再返回给namenode汇报的结果给客户端。</li>
+</ol>
+<h3 id="HDFS文件权限"><a href="#HDFS文件权限" class="headerlink" title="HDFS文件权限"></a>HDFS文件权限</h3><p>文件上传的用户名就是文件的拥有者。注意：文件上传的用户名和linux用户名是不一致的。通过用户名识别，而不使用密码。</p>
+
+<h3 id="HDFS安全模式"><a href="#HDFS安全模式" class="headerlink" title="HDFS安全模式"></a>HDFS安全模式</h3>
+<p>因为刚启动的时候，需要datanode给namenode汇报所有的文件位置信息，所以会有的时间段，这时间段是安全模式期间，在此期间读取数据的时候会报错。即为初始化的阶段。<br>要么等，要么强制离开安全模式，但是强制会导致数据丢失。</p>
+<h3 id="HDFS安装"><a href="#HDFS安装" class="headerlink" title="HDFS安装"></a>HDFS安装</h3><p>单节点安装 单节点模式也是本地模式（企业根本不会用）<br>集群安装 cluster<br>伪分布式模式（测试环境可能会用），全分布式模式。</p>
+<p>设置ssh免密码登陆 </p>
+<p>格式化命令只执行一次即可，会产生一些初始的数据，只格式化namenode。</p>
+<p>所有的节点都在一个机器上，叫做伪分布式。<br>不同的节点放置在不同的机器上，就是完全分布式。<br>区别就是节点在不在同一个机器上。<br>虚拟机建立快照，可以还原<br>ln -sf 添加软链<br>配置：<br>首先配置的是namenode读写的入口。<br>core-site配置namenode<br> 默认的工作目录是在linux 下tmp目录下，重启linux后tmp会清空。所以还需要配置一个新的属性。</p>
+<p>hadoop.tmp.dir 是hadoop的临时目录，但是hadoop.name.dir是以此为基础的，所以需要修改hadoop.tmp.dir目录所在的位置。<br></p>
+<p>添加的目录不用创建，格式化的时候会自动创建</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/23/Shell编程/" rel="next" title="Shell编程">
+                <i class="fa fa-chevron-left"></i> Shell编程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/10/Python数据分析之Numpy-Panadas使用/" rel="prev" title="Python数据分析之Numpy&Panadas使用">
+                Python数据分析之Numpy&Panadas使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cooper</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop自学笔记"><span class="nav-number">1.</span> <span class="nav-text">Hadoop自学笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop介绍"><span class="nav-number">1.1.</span> <span class="nav-text">Hadoop介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop安装"><span class="nav-number">1.2.</span> <span class="nav-text">Hadoop安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS-介绍"><span class="nav-number">1.3.</span> <span class="nav-text">HDFS 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS架构"><span class="nav-number">1.4.</span> <span class="nav-text">HDFS架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NameNode"><span class="nav-number">1.5.</span> <span class="nav-text">NameNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SecondaryNameNode"><span class="nav-number">1.6.</span> <span class="nav-text">SecondaryNameNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataNode"><span class="nav-number">1.7.</span> <span class="nav-text">DataNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Block副本放置策略"><span class="nav-number">1.8.</span> <span class="nav-text">Block副本放置策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS读写的流程"><span class="nav-number">1.9.</span> <span class="nav-text">HDFS读写的流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS读的流程"><span class="nav-number">1.9.1.</span> <span class="nav-text">HDFS读的流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HDFS写的流程"><span class="nav-number">1.9.2.</span> <span class="nav-text">HDFS写的流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS文件权限"><span class="nav-number">1.10.</span> <span class="nav-text">HDFS文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS安全模式"><span class="nav-number">1.11.</span> <span class="nav-text">HDFS安全模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS安装"><span class="nav-number">1.12.</span> <span class="nav-text">HDFS安装</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cooper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

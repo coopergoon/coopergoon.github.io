@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文介绍号称是最适合人类使用的库：Requests库。这个库的底层就是用urllib3实现的。继承了urllib2所有的特性，支持HTTP连接保持和连接池，支持cookie保持会话，支持POST数据自动编码。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Requests使用">
+<meta property="og:url" content="http://yoursite.com/2017/10/18/Requests使用/index.html">
+<meta property="og:site_name" content="Cooper">
+<meta property="og:description" content="本文介绍号称是最适合人类使用的库：Requests库。这个库的底层就是用urllib3实现的。继承了urllib2所有的特性，支持HTTP连接保持和连接池，支持cookie保持会话，支持POST数据自动编码。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-17T17:58:05.239Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Requests使用">
+<meta name="twitter:description" content="本文介绍号称是最适合人类使用的库：Requests库。这个库的底层就是用urllib3实现的。继承了urllib2所有的特性，支持HTTP连接保持和连接池，支持cookie保持会话，支持POST数据自动编码。">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2017/10/18/Requests使用/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Requests使用 | Cooper</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>Zeitplan</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/18/Requests使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cooper">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Requests使用
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2017-10-18 01:06:49 / Geändert am: 01:58:05" itemprop="dateCreated datePublished" datetime="2017-10-18T01:06:49+08:00">2017-10-18</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文介绍号称是最适合人类使用的库：Requests库。<br>这个库的底层就是用urllib3实现的。继承了urllib2所有的特性，支持HTTP连接保持和连接池，支持cookie保持会话，支持POST数据自动编码。  </p>
+<a id="more"></a>  
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装部分省略，自行谷歌。</p>
+<h3 id="基本的GET请求"><a href="#基本的GET请求" class="headerlink" title="基本的GET请求"></a>基本的GET请求</h3><h4 id="headers参数和parmas参数"><a href="#headers参数和parmas参数" class="headerlink" title="headers参数和parmas参数"></a>headers参数和parmas参数</h4><p>上代码：    </p>
+<pre><code># coding=utf8
+import requests
+
+# 此处是url中包含的参数
+kw = {&apos;wd&apos;: &apos;python&apos;}
+
+# 自行添加浏览器头uesr-agent
+headers = {&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &quot;
+                         &quot;Chrome/54.0.2840.99 Safari/537.36&quot;}
+
+url = &apos;http://www.baidu.com/s?&apos;
+
+# 将参数传递给get方法中，parmas是关键字，headers是浏览器头
+response = requests.get(url, params=kw, headers=headers)
+
+# 直接写到文件中
+# with open(&apos;bai.txt&apos;, &apos;wb&apos;) as f:
+#     f.write(response.content)
+
+
+print(response.status_code) # 返回状态码 ，例如 200
+print(response.encoding) # 返回响应头部字符编码， 例如utf-8
+print(response.url)    # 返回完整的URL地址  
+
+# content返回的是字节流数据，当写到文件中的时候要用‘wb’
+print(response.content)    
+
+# text方法返回的是unicode数据
+print(response.text)
+</code></pre><p>使用requests发送Get请求，很简单，直接构造一个请求数据就行。<br>url中wd后面是要查询的关键字。</p>
+<p><hr></p>
+<h3 id="基本的POST请求"><a href="#基本的POST请求" class="headerlink" title="基本的POST请求"></a>基本的POST请求</h3><p><strong><em>在发送post请求时候，必须带上一个data参数</em></strong><br>以下是以有道翻译网页为例，上代码：  </p>
+<pre><code># coding=utf8
+
+import requests
+
+ # 字典的构造必须要抓包才能知道到底是需要哪些数据
+ # 实际有些字段是不变的，多注意就能发现需要哪些
+data = {
+    &quot;type&quot;: &quot;AUTO&quot;,
+    &quot;i&quot;: &quot;hello, tom&quot;,
+    &quot;doctype&quot;: &quot;json&quot;,
+    &quot;xmlVersion&quot;: &quot;1.8&quot;,
+    &quot;keyfrom&quot;: &quot;fanyi.web&quot;,
+    &quot;ue&quot;: &quot;UTF-8&quot;,
+    &quot;action&quot;: &quot;FY_BY_ENTER&quot;,
+    &quot;typoResult&quot;: &quot;true&quot;
+}
+
+
+# url地址也是需要抓包才能知道要请求的地址是哪里
+url = &quot;http://fanyi.youdao.com/translate?smartresult=dict&amp;smartresult=rule&amp;smartresult=ugc&amp;sessionFrom=null&quot;
+
+
+headers = {&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36&quot;}
+
+# 发送post请求直接调用post方法即可
+response = requests.post(url, data=data, headers=headers)
+
+
+# text方法返回的是unicode数据
+print(response.text)
+
+# 如果返回json数据格式，则使用json方法会直接显示为json格式
+print(requests.json())
+</code></pre><h3 id="代理参数-Proxies"><a href="#代理参数-Proxies" class="headerlink" title="代理参数 Proxies"></a>代理参数 Proxies</h3><p>使用配置代理参数时，添加proxies参数即可：  </p>
+<pre><code>import requests
+
+# 根据协议类型，选择不同的代理
+proxies = {
+  &quot;http&quot;: &quot;http://121.343.26.29:9999&quot;,
+  &quot;https&quot;: &quot;http://122.341.563.44:9999&quot;,
+}
+
+response = requests.get(&quot;http://www.baidu.com&quot;, proxies = proxies)
+print response.text
+</code></pre><p>只是多了一个proxies参数而已，其余没区别，只是在写ip时要有ip地址和端口号。  </p>
+<h3 id="私密代理（特定格式）"><a href="#私密代理（特定格式）" class="headerlink" title="私密代理（特定格式）"></a>私密代理（特定格式）</h3><p>使用私密代理的时候是需要提供该网站的账号以及密码的，所以，就需要使用特定的格式：  </p>
+<pre><code>proxy = { &quot;http&quot;: &quot;账户名字:密码@所用的代理IP地址:端口号&quot; }
+</code></pre><p>上代码：  </p>
+<pre><code>import requests
+
+# 如果代理需要使用HTTP Basic Auth，可以使用下面这种格式：
+proxy = { &quot;http&quot;: &quot;账户名字:密码@所用的代理IP地址:端口号&quot; }
+
+response = requests.get(&quot;http://www.baidu.com&quot;, proxies = proxy)
+
+print response.text
+</code></pre><p>在代码上是没有去别的，同样使用的是proxies参数接受。</p>
+<h3 id="web客户端验证（auth参数）"><a href="#web客户端验证（auth参数）" class="headerlink" title="web客户端验证（auth参数）"></a>web客户端验证（auth参数）</h3><p>当需要进行web客户端验证，添加auth参数即可：</p>
+<pre><code>import requests
+
+auth=(&apos;test&apos;, &apos;123456&apos;)
+
+response = requests.get(&apos;http://192.168.199.107&apos;, auth = auth)
+
+print response.text
+</code></pre><p>同样使用auth参数接受。  </p>
+<p>在以上的二部分内容，如果是使用urllib2实现，是一个很麻烦的过程。so， requests库确实是一个很方便使用的库。</p>
+<h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h3><p>使用cookie参数直接就可以取到响应中包含的cookie： </p>
+<pre><code>import requests
+
+response = requests.get(&quot;http://www.baidu.com/&quot;)
+
+# 返回CookieJar对象:
+cookiejar = response.cookies
+
+# 将CookieJar转为字典：
+cookiedict = requests.utils.dict_from_cookiejar(cookiejar)
+
+# 返回的是cookie对象
+print cookiejar
+
+# 返回的会死字典格式的cookie值
+print cookiedict  
+</code></pre><h3 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h3><p>session在模拟登陆的时候非常有用的方法。在一些需要登录才能看到的页面，session显得很好用。</p>
+<pre><code>import requests
+
+# 1. 创建session对象，可以保存Cookie值
+ssion = requests.session()
+
+# 2. 处理 headers
+headers = {&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36&quot;}
+
+# 3. 需要登录的用户名和密码
+data = {&quot;登陆用户名的字段&quot;:&quot;登陆的用户名&quot;, &quot;登陆密码字段&quot;:&quot;登陆密码&quot;}  
+
+# 4. 发送附带用户名和密码的请求，并获取登录后的Cookie值，保存在ssion里
+ssion.post(&quot;http://www.renren.com/PLogin.do&quot;, data = data)
+
+# 5. ssion包含用户登录后的Cookie值，可以直接访问那些登录后才可以访问的页面
+response = ssion.get(&quot;http://www.renren.com/410043129/profile&quot;)
+
+# 6. 打印响应内容
+print response.text
+</code></pre><p>实际上这么简单的只用session验证登陆的网站并不是很多，很多的网址都是还附加了其他的验证机制。只能通过抓包查看。</p>
+<h3 id="处理HTTPS请求-SSL证书验证"><a href="#处理HTTPS请求-SSL证书验证" class="headerlink" title="处理HTTPS请求 SSL证书验证"></a>处理HTTPS请求 SSL证书验证</h3><p>对于https网页，要验证ssl证书时候，添加verify=True参数即可：  </p>
+<pre><code>import requests
+response = requests.get(&quot;https://www.baidu.com/&quot;, verify=True)
+</code></pre><p>一般的证书都是没问题的，但是对于12306网站，它是自己做的证书，要跳过这个ssl验证，将verify=False即可。否则会报SSLError错误。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/17/爬虫知识点杂碎/" rel="next" title="爬虫知识点杂碎">
+                <i class="fa fa-chevron-left"></i> 爬虫知识点杂碎
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/18/使用Xpath和正则数据提取/" rel="prev" title="使用Xpath和正则数据提取">
+                使用Xpath和正则数据提取 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cooper</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本的GET请求"><span class="nav-number">2.</span> <span class="nav-text">基本的GET请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#headers参数和parmas参数"><span class="nav-number">2.1.</span> <span class="nav-text">headers参数和parmas参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本的POST请求"><span class="nav-number">3.</span> <span class="nav-text">基本的POST请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理参数-Proxies"><span class="nav-number">4.</span> <span class="nav-text">代理参数 Proxies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#私密代理（特定格式）"><span class="nav-number">5.</span> <span class="nav-text">私密代理（特定格式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web客户端验证（auth参数）"><span class="nav-number">6.</span> <span class="nav-text">web客户端验证（auth参数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie"><span class="nav-number">7.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session"><span class="nav-number">8.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理HTTPS请求-SSL证书验证"><span class="nav-number">9.</span> <span class="nav-text">处理HTTPS请求 SSL证书验证</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cooper</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

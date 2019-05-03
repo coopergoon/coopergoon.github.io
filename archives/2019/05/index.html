@@ -96,17 +96,16 @@
 
 
 
-  <meta name="description" content="本文介绍支持向量机SVM算法。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="支持向量机SVM">
-<meta property="og:url" content="http://yoursite.com/2017/07/13/支持向量机SVM/index.html">
+  <meta name="description" content="他人即是地狱">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cooper">
+<meta property="og:url" content="http://yoursite.com/archives/2019/05/index.html">
 <meta property="og:site_name" content="Cooper">
-<meta property="og:description" content="本文介绍支持向量机SVM算法。">
+<meta property="og:description" content="他人即是地狱">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-07-13T13:05:38.083Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="支持向量机SVM">
-<meta name="twitter:description" content="本文介绍支持向量机SVM算法。">
+<meta name="twitter:title" content="Cooper">
+<meta name="twitter:description" content="他人即是地狱">
 
 
 
@@ -114,7 +113,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2017/07/13/支持向量机SVM/">
+  <link rel="canonical" href="http://yoursite.com/archives/2019/05/">
 
 
 
@@ -124,7 +123,7 @@
   };
 </script>
 
-  <title>支持向量机SVM | Cooper</title>
+  <title>归档 | Cooper</title>
   
 
 
@@ -172,7 +171,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left page-archive">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -261,7 +260,7 @@
         
         
           
-          <li class="menu-item menu-item-archives">
+          <li class="menu-item menu-item-archives menu-item-active">
 
     
     
@@ -303,185 +302,101 @@
           
             
 
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+
           
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block archive">
+    <div id="posts" class="posts-collapse">
+      <span class="archive-move-on"></span>
 
-  
+      
+      <span class="archive-page-counter">
+        
+        
+        
+          
+        
+        嗯..! 目前共计 24 篇日志。 继续努力。
+      </span>
+      
 
-  
-  
-  
+      
 
-  
+        
+        
+        
+
+        
+          
+          <div class="collection-title">
+            <h1 class="archive-year" id="archive-year-2019">2019</h1>
+          </div>
+        
+        
+
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/13/支持向量机SVM/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cooper">
-      <meta itemprop="description" content="他人即是地狱">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cooper">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
+          <a class="post-title-link" href="/2019/05/03/文字摘录/" itemprop="url">
+            
+              <span itemprop="name">文字摘录</span>
+            
+          </a>
         
-          <h1 class="post-title" itemprop="name headline">支持向量机SVM
+      </h2>
 
-              
-            
-          </h1>
-        
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2019-05-03T09:56:13+08:00" content="2019-05-03">
+          05-03
+        </time>
+      </div>
 
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-07-13 20:41:12 / 修改时间：21:05:38" itemprop="dateCreated datePublished" datetime="2017-07-13T20:41:12+08:00">2017-07-13</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>本文介绍支持向量机SVM算法。</p>
-<a id="more"></a>
-<p>机器学习的一般框架：<br>训练集 =&gt; 提取特征向量 =&gt; 结合一定的算法（分类器：比如决策树，KNN）=&gt;得到结果</p>
-<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3>
-<p>SVM寻找的是区分两类的超平面（hyper plane)，使边际(margin)最大。边际是指在超平面上，到最近的点的距离之和最大。即距超平面最远。<br><br>明显：第一张图的margin会小一些，第二张图的margin大一些。<br>margin越大，犯错的几率就会小一些。</p>
-<p><hr><br>存在无数个超平面。但是如何选取使边际(margin)最大的超平面 (Max Margin Hyperplane)？<br>超平面到一侧最近点的距离等于到另一侧最近点的距离，两侧的两个超平面平行。</p>
-<h3 id="线性可区分-linear-separable"><a href="#线性可区分-linear-separable" class="headerlink" title="线性可区分 (linear separable)"></a>线性可区分 (linear separable)</h3>
-<p>存在可区分的超平面</p>
-<h3 id="线性不可区分（linear-inseparable"><a href="#线性不可区分（linear-inseparable" class="headerlink" title="线性不可区分（linear inseparable)"></a>线性不可区分（linear inseparable)</h3>
-<p>因为不可能存在一个完全把两类分开的超平面，所以是线性不可区分。</p>
-
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/07/13/最邻近规则分类KNN算法/" rel="next" title="最邻近规则分类KNN算法">
-                <i class="fa fa-chevron-left"></i> 最邻近规则分类KNN算法
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/23/编写Python代码的91个建议/" rel="prev" title="编写Python代码的91个建议">
-                编写Python代码的91个建议 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
+
+      
+
+    </div>
   </div>
-
-
-          </div>
-          
+  
+  
+  
 
   
 
 
+
+          </div>
+          
 
         </div>
         
@@ -501,17 +416,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -597,23 +503,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性可区分-linear-separable"><span class="nav-number">2.</span> <span class="nav-text">线性可区分 (linear separable)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性不可区分（linear-inseparable"><span class="nav-number">3.</span> <span class="nav-text">线性不可区分（linear inseparable)</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
@@ -744,10 +633,6 @@
 
 
   
-  <script src="/js/scrollspy.js?v=7.1.0"></script>
-<script src="/js/post-details.js?v=7.1.0"></script>
-
-
 
   
 
@@ -763,8 +648,6 @@
 
   
 
-
-  
 
 
   

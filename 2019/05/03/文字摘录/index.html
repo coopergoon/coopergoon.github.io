@@ -96,17 +96,20 @@
 
 
 
-  <meta name="description" content="装饰器装饰器是经常用到的功能，很多面试都会问到，使用也是功能很强大。本篇介绍了无参数和不定长参数的函数使用装饰器，带参数的装饰器，多重装饰器以及类装饰器。">
+  <meta name="description" content="本篇记录各处看到的文字或者文章链接，以供日子自己翻看。">
+<meta name="keywords" content="文字摘录">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python-装饰器">
-<meta property="og:url" content="http://yoursite.com/2017/06/20/Python-装饰器/index.html">
+<meta property="og:title" content="文字摘录">
+<meta property="og:url" content="http://yoursite.com/2019/05/03/文字摘录/index.html">
 <meta property="og:site_name" content="Cooper">
-<meta property="og:description" content="装饰器装饰器是经常用到的功能，很多面试都会问到，使用也是功能很强大。本篇介绍了无参数和不定长参数的函数使用装饰器，带参数的装饰器，多重装饰器以及类装饰器。">
+<meta property="og:description" content="本篇记录各处看到的文字或者文章链接，以供日子自己翻看。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-06-20T13:36:38.061Z">
+<meta property="og:image" content="http://yoursite.com/2019/05/03/文字摘录/img/云南省图书馆.png">
+<meta property="og:updated_time" content="2019-05-03T02:03:25.295Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python-装饰器">
-<meta name="twitter:description" content="装饰器装饰器是经常用到的功能，很多面试都会问到，使用也是功能很强大。本篇介绍了无参数和不定长参数的函数使用装饰器，带参数的装饰器，多重装饰器以及类装饰器。">
+<meta name="twitter:title" content="文字摘录">
+<meta name="twitter:description" content="本篇记录各处看到的文字或者文章链接，以供日子自己翻看。">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/03/文字摘录/img/云南省图书馆.png">
 
 
 
@@ -114,7 +117,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2017/06/20/Python-装饰器/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/03/文字摘录/">
 
 
 
@@ -124,7 +127,7 @@
   };
 </script>
 
-  <title>Python-装饰器 | Cooper</title>
+  <title>文字摘录 | Cooper</title>
   
 
 
@@ -323,7 +326,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/Python-装饰器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/03/文字摘录/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cooper">
@@ -340,7 +343,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python-装饰器
+          <h1 class="post-title" itemprop="name headline">文字摘录
 
               
             
@@ -366,7 +369,7 @@
                 
               
 
-              <time title="创建时间：2017-06-20 18:55:46 / 修改时间：21:36:38" itemprop="dateCreated datePublished" datetime="2017-06-20T18:55:46+08:00">2017-06-20</time>
+              <time title="创建时间：2019-05-03 09:56:13 / 修改时间：10:03:25" itemprop="dateCreated datePublished" datetime="2019-05-03T09:56:13+08:00">2019-05-03</time>
             
 
             
@@ -405,105 +408,15 @@
       
 
       
-        <h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h2><p>装饰器是经常用到的功能，很多面试都会问到，使用也是功能很强大。<br>本篇介绍了无参数和不定长参数的函数使用装饰器，带参数的装饰器，多重装饰器以及类装饰器。</p>
-<a id="more"></a>
-<h3 id="装饰器常用场景"><a href="#装饰器常用场景" class="headerlink" title="装饰器常用场景"></a>装饰器常用场景</h3><ol>
-<li>引入日志</li>
-<li>函数执行时间</li>
-<li>执行函数的预处理</li>
-<li>执行函数后的清理</li>
-<li>权限校验</li>
-<li>缓存</li>
-</ol>
-<h3 id="例1-入门装饰器-无参数装饰器"><a href="#例1-入门装饰器-无参数装饰器" class="headerlink" title="例1:入门装饰器(无参数装饰器)"></a>例1:入门装饰器(无参数装饰器)</h3><p>上代码：</p>
-<pre><code>def w1(func):
-    def inner(): 
-        print(&apos;this is one&apos;)
-        print(&apos;------------------&apos;)
-        return func()
-    return inner  # 返回inner函数
-
-@w1
-def f1():
-    print(&apos;this is two&apos;)
-
-# 调用函数f1
-f1()
-</code></pre><p>执行结果：<br></p>
-<p>执行步骤：</p>
+        <p>本篇记录各处看到的文字或者文章链接，以供日子自己翻看。<br><a id="more"></a></p>
 <ol>
-<li>python解释器会先def w1(func) ，w1函数加载到内存中</li>
-<li>@w1</li>
+<li><p>生活中的焦虑几乎都来源于自我消磨和自我浪费。恐慌一旦意识到自身，便成为焦虑。             – 微博</p>
+</li>
+<li><p>我们曾如此渴望命运的波澜，到最后才发现，人生最曼妙的风景，竟是内心的淡定与从容.  </p>
+</li>
+<li><p>莫道君行早,更有早行人.<br><img src="../文字摘录/img/云南省图书馆.png" alt="云南省图书馆"></p>
+</li>
 </ol>
-<p>在函数调用之前其内部的代码不会被执行。但是@w1语句，包含很多的内容。@函数名是python的一种语法糖。</p>
-<p>@w1会执行以下操作：</p>
-<ul>
-<li>执行w1函数，并且将@符号下面的函数作为w1函数的参数，即@w1=w1(f1)。<br>此时就会去调用并执行w1(func)函数，解释器首先加载的是inner函数，而不是执行（因为没有调用）</li>
-<li>当执行到return inner时候，才会调用函数inner()函数，在函数inner中依次执行，执行到return func()，此时func() = f1()。即调用函数f1(),则是调用函数inner(),</li>
-<li>调用inner函数是，因为func() = f1()，所以才会执行函数f1()。</li>
-</ul>
-<h3 id="例2-被装饰的函数带不定长参数"><a href="#例2-被装饰的函数带不定长参数" class="headerlink" title="例2:被装饰的函数带不定长参数"></a>例2:被装饰的函数带不定长参数</h3><p>上代码：</p>
-<pre><code>from time import ctime, sleep
-
-def timefun(func):
-    def inner(*args, **kwagrs):     # 使用 *args, **kwagrs接受参数
-        print(&apos;%s called at %s&apos; %(func.__name__, ctime()))
-        return func(*args, **kwagrs) # func函数也要加上*args, **kwagrs
-    return inner
-
-@timefun
-def foo(a, b, c):
-    print(a+b+c)
-
-foo(1, 2, 3)
-sleep(3)
-foo(9, 8, 7)
-</code></pre><p>获取结果：<br><br>在inner函数出使用*args， <strong>kwagrs接受不定长以及关键字参数。
-</strong>注意**：</p>
-<ul>
-<li>inner函数中使用的func.<strong>name</strong>输出的是函数foo的函数名，如果只是使用func,则是输出是函数的内存地址。</li>
-<li>return func() return必须加上，为了让装饰器更通用。以防在执行函数foo()处没有print而是renturn的时候，就不会输出结果。</li>
-<li>ctime()方法返回的是当前的时间</li>
-</ul>
-<h3 id="例3-装饰器带参数"><a href="#例3-装饰器带参数" class="headerlink" title="例3:装饰器带参数"></a>例3:装饰器带参数</h3><p>在原有装饰器的基础上，设置外部变量。<br>上代码：<br>    from time import ctime, sleep</p>
-<pre><code>def timefun_arg(pre=&apos;hello&apos;):  # 装饰器参数在这里接受，里面嵌套的函数可以直接使用
-    def timefunc(func):           # 以下内容和装饰器不带参数的形式形同
-        def inner(*args, **kwagrs):
-            print(&apos;%s called at %s %s&apos; % (func.__name__, ctime(), pre))
-            return func(*args, **kwagrs)
-        return inner        # 返回inner函数
-    return timefunc            # 返回timefunc函数
-
-@timefun_arg(&apos;Python&apos;)   # 装饰器参数在这里传递
-def foo(a, b, c):
-    print(a+b+c)
-
-foo(1, 3, 4)
-sleep(2)
-foo(7, 8, 9)
-</code></pre><p>输出结果：<br></p>
-<h3 id="例4-多重装饰器"><a href="#例4-多重装饰器" class="headerlink" title="例4:多重装饰器"></a>例4:多重装饰器</h3><pre><code>@A
-@B
-def c():
-    pass
-</code></pre><p>装饰的时候先是用B装饰，再用A装饰。<br>在执行时候，先执行A函数，再执行B函数。<br>当执行A是，需要return func即c函数，此时的c函数放在了B中的return func()中了，<strong>因为先装饰最近的函数</strong>，所以返回给A的内容中，是已经加上B中的内容以后的。<br>上代码：</p>
-<pre><code>def makeBold(fn):
-    def wrapped():
-        return &quot;&lt;b&gt;&quot; + fn() + &quot;&lt;/b&gt;&quot;
-    return wrapped
-
-def makeItalic(fn):
-    def wrapped():
-        return &quot;&lt;i&gt;&quot; + fn() + &quot;&lt;/i&gt;&quot;
-    return wrapped
-
-@makeBold
-@makeItalic
-def test3():
-    return &quot;hello world-3&quot;
-</code></pre><p>运行结果：</p>
-<pre><code>&lt;b&gt;&lt;i&gt;hello world-3&lt;/i&gt;&lt;/b&gt;
-</code></pre><h3 id="例6-类装饰器"><a href="#例6-类装饰器" class="headerlink" title="例6:类装饰器"></a>例6:类装饰器</h3><p>参考链接:<br><a href="http://howdoit.cn/2017/03/16/09-python-%E7%B1%BB%E8%A3%85%E9%A5%B0%E5%99%A8/" target="_blank" rel="noopener">http://howdoit.cn/2017/03/16/09-python-%E7%B1%BB%E8%A3%85%E9%A5%B0%E5%99%A8/</a><br>待补充，敬请期待</p>
 
       
     </div>
@@ -525,6 +438,12 @@ def test3():
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/文字摘录/" rel="tag"># 文字摘录</a>
+          
+        </div>
+      
 
       
       
@@ -534,8 +453,8 @@ def test3():
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/19/Redis/" rel="next" title="Redis">
-                <i class="fa fa-chevron-left"></i> Redis
+              <a href="/2017/10/25/JS笔记/" rel="next" title="JS笔记">
+                <i class="fa fa-chevron-left"></i> JS笔记
               </a>
             
           </div>
@@ -543,10 +462,6 @@ def test3():
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/21/Tornado学习/" rel="prev" title="Tornado学习">
-                Tornado学习 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -590,17 +505,8 @@ def test3():
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -686,23 +592,6 @@ def test3():
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰器"><span class="nav-number">1.</span> <span class="nav-text">装饰器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器常用场景"><span class="nav-number">1.1.</span> <span class="nav-text">装饰器常用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例1-入门装饰器-无参数装饰器"><span class="nav-number">1.2.</span> <span class="nav-text">例1:入门装饰器(无参数装饰器)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例2-被装饰的函数带不定长参数"><span class="nav-number">1.3.</span> <span class="nav-text">例2:被装饰的函数带不定长参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例3-装饰器带参数"><span class="nav-number">1.4.</span> <span class="nav-text">例3:装饰器带参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例4-多重装饰器"><span class="nav-number">1.5.</span> <span class="nav-text">例4:多重装饰器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例6-类装饰器"><span class="nav-number">1.6.</span> <span class="nav-text">例6:类装饰器</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
